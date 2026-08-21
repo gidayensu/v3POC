@@ -39,13 +39,43 @@ p {
 .sidebar {
   position: fixed;
   inset: 0 auto 0 0;
-  width: 245px;
-  background: #061f49;
-  color: #cad7ee;
-  padding: 0 16px;
+  width: 272px;
+  background: #1b2470;
+  color: #dfe4ff;
+  padding: 0 12px;
   z-index: 20;
   display: flex;
   flex-direction: column;
+  transition: width 0.18s ease;
+}
+.sidebar-head {
+  height: 78px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 6px;
+  flex: none;
+}
+.sidebar-head .logo {
+  flex: none;
+}
+.sidebar .rail-toggle {
+  flex: none;
+  border: 0;
+  background: none;
+  color: #a7b1e8;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  min-width: 0;
+  padding: 0;
+  gap: 0;
+  border-radius: 7px;
+}
+.sidebar .rail-toggle:hover {
+  background: #2a3490;
+  color: white;
 }
 .logo {
   height: 78px;
@@ -55,25 +85,95 @@ p {
   white-space: nowrap;
   color: #122048;
 }
+.logo img {
+  display: block;
+  width: 160px;
+  height: 23px;
+  object-fit: contain;
+  object-position: left center;
+}
 .sidebar .logo {
+  height: auto;
   color: white;
 }
-.logo > b {
-  font-size: 34px;
-  font-weight: 900;
-  font-style: italic;
-  color: #0b63f6;
+.app-context {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 10px;
+  margin: 0 2px 14px;
+  padding: 10px;
+  border-radius: 10px;
+  background: #141c5c;
+  border: 1px solid #2c3690;
+  flex: none;
 }
-.logo span {
-  font-size: 18px;
+.app-context p {
+  display: grid;
+  margin: 0;
+  min-width: 0;
 }
-.logo i {
-  font-style: normal;
-  font-weight: 500;
+.app-context b {
+  font-size: 13px;
+  color: white;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.app-context small {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8f9bd8;
+}
+.app-context > button {
+  border: 0;
+  background: none;
+  color: #a7b1e8;
+  padding: 5px;
+  border-radius: 6px;
+  display: grid;
+  place-items: center;
+}
+.app-context > button:hover {
+  background: #2a3490;
+  color: white;
 }
 .sidebar nav {
   display: grid;
-  gap: 6px;
+  align-content: start;
+  gap: 14px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding-bottom: 12px;
+  scrollbar-width: thin;
+  scrollbar-color: #39439c transparent;
+}
+.sidebar .nav-section {
+  display: grid;
+  gap: 2px;
+}
+.sidebar .nav-heading {
+  border: 0;
+  background: none;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8f9bd8;
+  padding: 6px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+}
+.sidebar .nav-heading svg {
+  width: 15px;
+  height: 15px;
+  transition: transform 0.15s ease;
+}
+.sidebar .nav-heading.folded svg {
+  transform: rotate(-90deg);
 }
 .sidebar button {
   border: 0;
@@ -81,21 +181,63 @@ p {
   color: inherit;
   display: flex;
   align-items: center;
-  gap: 13px;
-  padding: 13px;
-  border-radius: 7px;
+  gap: 12px;
+  padding: 11px 12px;
+  border-radius: 8px;
   text-align: left;
+  width: 100%;
+  font-size: 14px;
 }
-.sidebar nav button.active {
-  background: #0b63f6;
-  color: white;
+.sidebar nav button > span {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
-.sidebar nav button:hover {
-  background: #123968;
+.sidebar nav button svg,
+.sidebar footer button svg {
+  flex: none;
+}
+.sidebar nav button.active,
+.sidebar footer button.active {
+  background: white;
+  color: #1d4ed8;
+  font-weight: 500;
+  box-shadow: 0 1px 2px rgb(9 14 60 / 0.35);
+}
+.sidebar nav button:hover,
+.sidebar footer button:hover {
+  background: #2a3490;
+}
+.sidebar nav button.active:hover,
+.sidebar footer button.active:hover {
+  background: white;
+}
+.sidebar .caret {
+  width: 15px;
+  height: 15px;
+  transition: transform 0.15s ease;
+}
+.sidebar .caret.open {
+  transform: rotate(180deg);
+}
+.sidebar .nav-children {
+  display: grid;
+  gap: 1px;
+  margin: 2px 0 6px 25px;
+  padding-left: 12px;
+  border-left: 1px solid #39439c;
+}
+.sidebar .nav-children button {
+  font-size: 13px;
+  padding: 8px 10px;
+  color: #b6bfef;
 }
 .sidebar em {
   margin-left: auto;
   font-style: normal;
+  font-size: 12px;
   background: #e33;
   color: white;
   border-radius: 20px;
@@ -103,11 +245,49 @@ p {
 }
 .sidebar footer {
   margin-top: auto;
-  border-top: 1px solid #294569;
-  padding: 18px 0;
+  border-top: 1px solid #2c3690;
+  padding: 10px 0 16px;
+  display: grid;
+  gap: 2px;
+  flex: none;
+}
+/* Icon rail */
+.shell.collapsed .sidebar {
+  width: 76px;
+  padding: 0 10px;
+}
+.shell.collapsed .sidebar .logo,
+.shell.collapsed .sidebar nav button > span,
+.shell.collapsed .sidebar .nav-heading,
+.shell.collapsed .sidebar .nav-children,
+.shell.collapsed .app-context p,
+.shell.collapsed .app-context > button,
+.shell.collapsed .sidebar footer button > span,
+.shell.collapsed .sidebar .caret,
+.shell.collapsed .sidebar em {
+  display: none;
+}
+.shell.collapsed .sidebar-head {
+  justify-content: center;
+}
+.shell.collapsed .app-context {
+  grid-template-columns: 1fr;
+  justify-items: center;
+  padding: 8px;
+}
+.shell.collapsed .sidebar nav button,
+.shell.collapsed .sidebar footer button {
+  justify-content: center;
+  padding: 11px 0;
+}
+.shell.collapsed .sidebar .nav-section {
+  gap: 2px;
+}
+.shell.collapsed .work {
+  margin-left: 76px;
 }
 .work {
-  margin-left: 245px;
+  margin-left: 272px;
   min-width: 0;
   flex: 1;
 }
@@ -414,6 +594,10 @@ p {
   width: 48px;
   height: 48px;
 }
+.picon.neutral {
+  background: #eceff7;
+  color: #1b2470;
+}
 .picon.purple {
   background: #eee5ff;
   color: #6d2db3;
@@ -557,6 +741,13 @@ p {
   place-items: center;
   padding: 20px;
   overflow: auto;
+}
+/* The wrapper is sized by its content, so centre the panel inside it too. */
+.overlay > div {
+  display: grid;
+  justify-items: center;
+  max-width: 100%;
+  min-width: 0;
 }
 .switcher,
 .gateway,
@@ -1227,6 +1418,119 @@ p {
   min-width: 150px;
   white-space: nowrap;
 }
+.quick-switch {
+  margin-bottom: 26px;
+}
+.quick-switch > header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #475467;
+  margin-bottom: 12px;
+}
+.quick-switch > header h2 {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0;
+  color: #101d42;
+}
+.quick-switch > header svg {
+  width: 17px;
+  height: 17px;
+  color: #0b63f6;
+}
+.quick-switch > header svg:last-child {
+  color: #98a2b3;
+}
+/*
+ * `overflow-x: auto` also clips vertically, so the rail needs enough padding
+ * to hold the dismiss badge that overhangs each card's top-right corner.
+ */
+.quick-switch-rail {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding: 14px 12px 12px;
+  margin: -14px -12px -12px;
+  scrollbar-width: thin;
+}
+.quick-switch-card {
+  position: relative;
+  flex: 0 0 300px;
+  max-width: 300px;
+}
+.quick-switch-card > button:first-child {
+  width: 100%;
+  border: 1px solid #e4e8ef;
+  background: white;
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 14px;
+  text-align: left;
+  transition:
+    border-color 0.15s ease,
+    box-shadow 0.15s ease;
+}
+.quick-switch-card > button:first-child:hover {
+  border-color: #0b63f6;
+  box-shadow: 0 4px 14px rgb(16 29 66 / 0.08);
+}
+.quick-switch-card .picon {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+}
+.quick-switch-card p {
+  display: grid;
+  gap: 5px;
+  margin: 0;
+  justify-items: start;
+  min-width: 0;
+}
+.quick-switch-card b {
+  font-size: 14px;
+  font-weight: 500;
+  color: #101d42;
+}
+.quick-switch-card em {
+  font-style: normal;
+  font-size: 11px;
+  color: #1d4ed8;
+  background: #eaf0ff;
+  border-radius: 5px;
+  padding: 3px 8px;
+}
+.quick-switch-card > button:first-child > svg {
+  color: #98a2b3;
+  width: 17px;
+}
+.quick-switch-card .dismiss {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 22px;
+  height: 22px;
+  border: 0;
+  border-radius: 50%;
+  background: #e5484d;
+  color: white;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  opacity: 0;
+  transition: opacity 0.15s ease;
+}
+.quick-switch-card:hover .dismiss,
+.quick-switch-card .dismiss:focus-visible {
+  opacity: 1;
+}
+.quick-switch-card .dismiss svg {
+  width: 13px;
+  height: 13px;
+}
 .simple-home {
   display: grid;
   grid-template-columns: minmax(0, 1.45fr) minmax(280px, 0.85fr);
@@ -1277,8 +1581,12 @@ p {
 }
 .recently-head {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  margin-top: 28px;
+  margin-bottom: 12px;
+}
+.recently-head h2 {
+  margin: 0;
 }
 .recently-head button {
   border: 0;
@@ -1289,34 +1597,6 @@ p {
 }
 .recently-head svg {
   width: 14px;
-}
-.recent-chips {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 9px;
-}
-.recent-chips button {
-  border: 1px solid #dfe4ea;
-  background: white;
-  border-radius: 6px;
-  padding: 12px;
-  text-align: left;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 3px 7px;
-}
-.recent-chips i {
-  width: 3px;
-  height: 22px;
-  background: #0b63f6;
-  grid-row: 1/3;
-}
-.recent-chips b,
-.recent-chips span {
-  font-size: 11px;
-}
-.recent-chips span {
-  color: #667085;
 }
 .home-side > button {
   width: 100%;
@@ -1748,6 +2028,53 @@ p {
 }
 .timeline {
   padding: 10px 22px;
+}
+.log-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.log-filters button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  border: 1px solid #dfe4ea;
+  background: white;
+  color: #475467;
+  border-radius: 20px;
+  padding: 7px 14px;
+  font-size: 13px;
+}
+.log-filters button:hover {
+  border-color: #b9c6dc;
+}
+.log-filters button.active {
+  background: #1b2470;
+  border-color: #1b2470;
+  color: white;
+}
+.log-filters em {
+  font-style: normal;
+  font-size: 11px;
+  color: #667085;
+  background: #eceff7;
+  border-radius: 10px;
+  padding: 1px 7px;
+}
+.log-filters button.active em {
+  background: #39439c;
+  color: white;
+}
+.log-source {
+  display: inline-block;
+  margin-right: 9px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #1b2470;
+  background: #eceff7;
+  border-radius: 4px;
+  padding: 2px 7px;
 }
 .timeline > div {
   display: flex;
@@ -2608,11 +2935,22 @@ p {
 .branch-modal footer,
 .confirm-modal footer {
   display: flex;
+  flex-wrap: wrap;
   justify-content: flex-end;
   gap: 9px;
   border-top: 1px solid #e4e7ec;
   padding-top: 16px;
   margin-top: 20px;
+}
+.confirm-modal footer button {
+  height: auto;
+  min-height: 38px;
+  padding: 9px 16px;
+  line-height: 1.25;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 .confirm-modal {
   width: min(420px, 100%);
@@ -2640,6 +2978,21 @@ p {
   display: grid;
   place-items: center;
   margin: auto;
+}
+.app-switch-modal .switch-icon {
+  background: none;
+}
+.app-switch-modal .switch-icon .picon {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+.app-switch-modal p b,
+.app-exit-modal p b {
+  color: #101d42;
+}
+.app-exit-modal footer {
+  justify-content: center;
 }
 .business-switch-modal p b {
   color: #101d42;
@@ -3462,9 +3815,6 @@ p {
   .home-side {
     margin-top: 20px;
   }
-  .recent-chips {
-    grid-template-columns: repeat(2, 1fr);
-  }
   .homegrid {
     grid-template-columns: 1fr;
   }
@@ -3708,9 +4058,6 @@ p {
   }
   .workspace-products > div > button > span {
     display: none;
-  }
-  .recent-chips {
-    grid-template-columns: 1fr 1fr;
   }
   .business-facts {
     grid-template-columns: 1fr 1fr;
