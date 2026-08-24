@@ -1,128 +1,195 @@
-import { useState } from "react"
-import {
-  Activity,
-  Banknote,
-  CreditCard,
-  ShieldCheck,
-  type LucideIcon,
-} from "lucide-react"
+import { FilePenLine, FilePlus2, type LucideIcon } from "lucide-react"
+
+/** A log line is plain text with the entities it touched picked out in bold. */
+type Segment = string | { b: string }
 
 type LogEntry = {
-  source: string
-  icon: LucideIcon
-  actor: string
-  action: string
+  icon?: LucideIcon
+  tone?: "blue" | "green"
+  text: Segment[]
+  link?: string
   at: string
 }
 
-const logs: LogEntry[] = [
+type LogGroup = {
+  title: string
+  entries: LogEntry[]
+}
+
+const groups: LogGroup[] = [
   {
-    source: "TransPay",
-    icon: Banknote,
-    actor: "Gideon Okafor",
-    action: "approved bulk disbursement TP-4821 (GHS 184,300.00)",
-    at: "Today, 10:42 AM",
+    title: "User Management",
+    entries: [
+      {
+        icon: FilePenLine,
+        text: [
+          "Maame Akua Kyerewaa Bessah changed the ",
+          { b: "Selasi Pharmacy Shop" },
+          " theme to ",
+          { b: "#1E89EF" },
+        ],
+        at: "3:26 PM",
+      },
+      {
+        icon: FilePenLine,
+        text: [
+          { b: "Seth Nkansah" },
+          " update roles from ",
+          { b: "RPay Terminal" },
+          " to ",
+          { b: "RPay Merchant Admin" },
+          " for user – ",
+          { b: "Aduamah Lawrence" },
+          " successfully.",
+        ],
+        at: "3:11 PM",
+      },
+      {
+        icon: FilePenLine,
+        text: [
+          { b: "Seth Nkansah" },
+          " reassigned ",
+          { b: "Aduamah Lawrence laduamah@arbapexbank.com" },
+          " branches from ",
+          { b: "none" },
+          " to successfully.",
+        ],
+        at: "3:11 PM",
+      },
+      {
+        icon: FilePlus2,
+        tone: "green",
+        text: [
+          "Seth Nkansah created a new user – ",
+          { b: "Alfred Abankwah" },
+          " successfully.",
+        ],
+        at: "2:57 PM",
+      },
+    ],
   },
   {
-    source: "RPay",
-    icon: CreditCard,
-    actor: "Ama Mensah",
-    action: "reconciled terminal batch RP-0917 for Osu branch",
-    at: "Today, 10:05 AM",
+    title: "Sms Messages",
+    entries: [
+      {
+        icon: FilePenLine,
+        text: [
+          { b: "Richard A. Mensah" },
+          " updated the details of a recipient.",
+        ],
+        link: "View Details",
+        at: "3:24 PM",
+      },
+      {
+        icon: FilePenLine,
+        text: [
+          { b: "Richard A. Mensah" },
+          " updated the details of a recipient.",
+        ],
+        link: "View Details",
+        at: "3:23 PM",
+      },
+      {
+        icon: FilePenLine,
+        text: [
+          { b: "Richard A. Mensah" },
+          " updated the details of a recipient.",
+        ],
+        link: "View Details",
+        at: "3:14 PM",
+      },
+      {
+        icon: FilePenLine,
+        text: [
+          { b: "Richard A. Mensah" },
+          " updated the details of a recipient.",
+        ],
+        link: "View Details",
+        at: "3:14 PM",
+      },
+    ],
   },
   {
-    source: "TransPay",
-    icon: Banknote,
-    actor: "Kofi Boateng",
-    action: "added Tema Industrial as a payout branch",
-    at: "Today, 9:31 AM",
-  },
-  {
-    source: "Workspace",
-    icon: ShieldCheck,
-    actor: "Gideon Okafor",
-    action: "submitted Accounts configuration for review",
-    at: "Today, 9:24 AM",
-  },
-  {
-    source: "RPay",
-    icon: CreditCard,
-    actor: "Naa Adjeley",
-    action: "created bill category “School fees — Term 2”",
-    at: "Yesterday, 4:58 PM",
-  },
-  {
-    source: "TransPay",
-    icon: Banknote,
-    actor: "System",
-    action: "flagged 3 failed payouts for retry",
-    at: "Yesterday, 3:40 PM",
-  },
-  {
-    source: "Workspace",
-    icon: ShieldCheck,
-    actor: "Ama Mensah",
-    action: "requested access to Settlement",
-    at: "Yesterday, 3:12 PM",
-  },
-  {
-    source: "RPay",
-    icon: CreditCard,
-    actor: "Kwesi Danso",
-    action: "deactivated terminal RP-TRM-2214",
-    at: "Aug 19, 2026",
-  },
-  {
-    source: "Workspace",
-    icon: ShieldCheck,
-    actor: "Compliance Operations",
-    action: "approved business verification",
-    at: "Aug 18, 2026",
+    title: "Terminal",
+    entries: [
+      {
+        text: [
+          "Alfred Abankwah successfully added a new terminal with ",
+          { b: "name" },
+          ": ALFRED ABANKWAH, ",
+          { b: "mobile number" },
+          ": 233249383068 in ",
+          { b: "branch" },
+          ": Apex Rpay Product",
+        ],
+        at: "3:12 PM",
+      },
+      {
+        text: [
+          "Seth Nkansah successfully added ",
+          { b: "terminal" },
+          " Aduamah Lawrence, 58833 as a portal user with ",
+          { b: "email" },
+          ": laduamah@arbapexbank.com",
+        ],
+        at: "3:02 PM",
+      },
+    ],
   },
 ]
 
-const sources = ["All", "TransPay", "RPay", "Workspace"]
+const toneStyles = {
+  blue: "bg-[#7cc3e8]",
+  green: "bg-[#43ac72]",
+}
 
 export function AuditPage() {
-  const [source, setSource] = useState("All")
-  const shown =
-    source === "All" ? logs : logs.filter((log) => log.source === source)
-
   return (
-    <>
-      <div className="log-filters">
-        {sources.map((option) => (
-          <button
-            key={option}
-            className={source === option ? "active" : ""}
-            onClick={() => setSource(option)}
-          >
-            {option}
-            <em>
-              {option === "All"
-                ? logs.length
-                : logs.filter((log) => log.source === option).length}
-            </em>
-          </button>
-        ))}
-      </div>
-      <section className="timeline">
-        {shown.map((log) => {
-          const I = log.icon || Activity
-          return (
-            <div key={`${log.actor}-${log.at}-${log.action}`}>
-              <I />
-              <p>
-                <b>{log.actor}</b> {log.action}
-                <small>
-                  <span className="log-source">{log.source}</span>
-                  {log.at}
-                </small>
-              </p>
-            </div>
-          )
-        })}
-      </section>
-    </>
+    <section className="rounded-xl border border-[#e6e9f2] bg-white px-6 py-5">
+      {groups.map((group) => (
+        <div key={group.title}>
+          <h2 className="border-b border-[#e8ebf2] pb-2.5 text-[13px] font-medium text-[#2340c8]">
+            {group.title}
+          </h2>
+          {group.entries.map((entry, i) => {
+            const Icon = entry.icon
+            return (
+              <div
+                key={`${group.title}-${i}`}
+                className="flex items-center gap-3.5 border-b border-[#eef0f6] py-3.5 last:border-0"
+              >
+                <span
+                  className={`grid size-8 shrink-0 place-items-center rounded-full text-white ${toneStyles[entry.tone ?? "blue"]}`}
+                >
+                  {Icon && <Icon aria-hidden="true" className="size-4" />}
+                </span>
+                <p className="min-w-0 flex-1 text-[13px] leading-snug text-[#3f4a60]">
+                  {entry.text.map((segment, s) =>
+                    typeof segment === "string" ? (
+                      <span key={s}>{segment}</span>
+                    ) : (
+                      <b key={s} className="font-semibold text-[#101d42]">
+                        {segment.b}
+                      </b>
+                    )
+                  )}
+                  {entry.link && (
+                    <button
+                      type="button"
+                      className="ml-2 text-[13px] text-[#2340c8] underline-offset-2 hover:underline"
+                    >
+                      {entry.link}
+                    </button>
+                  )}
+                </p>
+                <span className="shrink-0 text-[12px] whitespace-nowrap text-[#3f4a60]">
+                  {entry.at}
+                </span>
+              </div>
+            )
+          })}
+        </div>
+      ))}
+    </section>
   )
 }

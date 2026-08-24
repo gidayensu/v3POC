@@ -178,7 +178,7 @@ p {
 .sidebar nav button.active,
 .sidebar footer button.active {
   background: white;
-  color: #1d4ed8;
+  color: var(--sidebar-base);
   font-weight: 500;
   box-shadow: 0 1px 2px rgb(9 14 60 / 0.35);
 }
@@ -189,6 +189,7 @@ p {
 .sidebar nav button.active:hover,
 .sidebar footer button.active:hover {
   background: white;
+  color: var(--sidebar-base);
 }
 .sidebar .caret {
   width: 15px;
