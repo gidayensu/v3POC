@@ -1,25 +1,25 @@
 import {
-  Activity,
-  BarChart3,
-  Building,
-  ClipboardList,
-  Cog,
-  CreditCard,
-  FileSpreadsheet,
-  FileText,
-  LayoutGrid,
-  ListTree,
-  MonitorSmartphone,
-  Network,
-  Receipt,
-  ScrollText,
-  Send,
-  Settings,
-  SquareStack,
-  Users,
-  UsersRound,
-  WalletCards,
-} from "lucide-react"
+  Activity01Icon,
+  Analytics01Icon,
+  Building02Icon,
+  CreditCardIcon,
+  DashboardSquare01Icon,
+  File01Icon,
+  InvoiceIcon,
+  Layers01Icon,
+  ListViewIcon,
+  MonitorSmartphoneIcon,
+  NetworkIcon,
+  ReceiptIcon,
+  SentIcon,
+  Settings01Icon,
+  Settings02Icon,
+  SheetIcon,
+  TaskDaily01Icon,
+  UserGroupIcon,
+  UserMultipleIcon,
+  Wallet01Icon,
+} from "@hugeicons/core-free-icons"
 
 import type { AppNavSection, View } from "@/types"
 
@@ -27,8 +27,8 @@ import type { AppNavSection, View } from "@/types"
 const generalSection: AppNavSection = {
   title: "General",
   items: [
-    { icon: Users, label: "Users", view: "users" },
-    { icon: ClipboardList, label: "Activity Logs", view: "audit" },
+    { icon: UserMultipleIcon, label: "Users", view: "users" },
+    { icon: TaskDaily01Icon, label: "Activity Logs", view: "audit" },
   ],
 }
 
@@ -36,33 +36,39 @@ const transpayNav: AppNavSection[] = [
   generalSection,
   {
     title: "Prepaid",
-    items: [{ icon: SquareStack, label: "Balance", view: "balances" }],
+    items: [{ icon: Layers01Icon, label: "Balance", view: "balances" }],
   },
   {
     title: "TransPay",
     items: [
-      { icon: LayoutGrid, label: "Dashboard", view: "transpay-setup" },
       {
-        icon: Send,
+        icon: DashboardSquare01Icon,
+        label: "Dashboard",
+        view: "transpay-setup",
+      },
+      {
+        icon: SentIcon,
         label: "Disbursements",
         children: ["Single payment", "Bulk upload", "Payment history"],
       },
       {
-        icon: Receipt,
+        icon: InvoiceIcon,
         label: "Invoices",
         children: ["All invoices", "Drafts", "Recurring"],
       },
       {
-        icon: FileSpreadsheet,
+        icon: SheetIcon,
         label: "Reconciliations",
         children: ["Statements", "Exceptions"],
       },
-      { icon: Settings, label: "Settings", view: "settings" },
+      { icon: Settings02Icon, label: "Settings", view: "settings" },
     ],
   },
   {
     title: "Global transactions",
-    items: [{ icon: ListTree, label: "All Transactions", view: "settlement" }],
+    items: [
+      { icon: ListViewIcon, label: "All Transactions", view: "settlement" },
+    ],
   },
 ]
 
@@ -71,28 +77,28 @@ const rpayNav: AppNavSection[] = [
   {
     title: "RPay",
     items: [
-      { icon: LayoutGrid, label: "Dashboard", view: "product" },
-      { icon: BarChart3, label: "Analytics" },
-      { icon: MonitorSmartphone, label: "Terminals" },
-      { icon: Building, label: "Branches" },
+      { icon: DashboardSquare01Icon, label: "Dashboard", view: "product" },
+      { icon: Analytics01Icon, label: "Analytics" },
+      { icon: MonitorSmartphoneIcon, label: "Terminals" },
+      { icon: Building02Icon, label: "Branches" },
       {
-        icon: ScrollText,
+        icon: ReceiptIcon,
         label: "Bill Management",
         children: ["Bills", "Bill categories"],
       },
       {
-        icon: FileText,
+        icon: File01Icon,
         label: "Reports",
         children: ["Collections", "Terminal performance"],
       },
       {
-        icon: UsersRound,
+        icon: UserGroupIcon,
         label: "Customer Management",
         children: ["Customers", "Segments"],
       },
-      { icon: Cog, label: "Configurations", view: "settings" },
+      { icon: Settings01Icon, label: "Configurations", view: "settings" },
       {
-        icon: Network,
+        icon: NetworkIcon,
         label: "Network",
         children: ["Institutions", "Routing"],
       },
@@ -100,7 +106,9 @@ const rpayNav: AppNavSection[] = [
   },
   {
     title: "Settlement report",
-    items: [{ icon: ListTree, label: "Settlement Report", view: "settlement" }],
+    items: [
+      { icon: ListViewIcon, label: "Settlement Report", view: "settlement" },
+    ],
   },
 ]
 
@@ -109,14 +117,14 @@ const accountsNav: AppNavSection[] = [
   {
     title: "Accounts",
     items: [
-      { icon: LayoutGrid, label: "Overview", view: "accounts" },
-      { icon: WalletCards, label: "Balances", view: "balances" },
+      { icon: DashboardSquare01Icon, label: "Overview", view: "accounts" },
+      { icon: Wallet01Icon, label: "Balances", view: "balances" },
       {
-        icon: FileSpreadsheet,
+        icon: SheetIcon,
         label: "Statements",
         children: ["Download", "Scheduled"],
       },
-      { icon: Settings, label: "Configuration", view: "accounts" },
+      { icon: Settings02Icon, label: "Configuration", view: "accounts" },
     ],
   },
 ]
@@ -127,10 +135,10 @@ const genericNav = (name: string): AppNavSection[] => [
   {
     title: name,
     items: [
-      { icon: LayoutGrid, label: "Dashboard", view: "product" },
-      { icon: Activity, label: "Transactions", view: "settlement" },
-      { icon: CreditCard, label: "Payouts", view: "balances" },
-      { icon: Settings, label: "Settings", view: "settings" },
+      { icon: DashboardSquare01Icon, label: "Dashboard", view: "product" },
+      { icon: Activity01Icon, label: "Transactions", view: "settlement" },
+      { icon: CreditCardIcon, label: "Payouts", view: "balances" },
+      { icon: Settings02Icon, label: "Settings", view: "settings" },
     ],
   },
 ]

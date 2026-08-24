@@ -1,3 +1,4 @@
+import type { IconSvgElement } from "@hugeicons/react"
 import type { LucideIcon } from "lucide-react"
 
 export type View =
@@ -28,7 +29,7 @@ export type Product = {
 }
 
 export type NavItem = {
-  icon: LucideIcon
+  icon: IconSvgElement
   label: string
   view: View
   badge?: number
@@ -62,6 +63,8 @@ export type TranspayDraft = {
 export type SwitchableBusiness = {
   name: string
   initials: string
+  /** Imported logo asset, shown wherever the business is identified. */
+  logo: string
   status: string
 }
 
@@ -80,7 +83,7 @@ export type DraftUpdater = <K extends keyof TranspayDraft>(
 
 /** A single row in an application's own sidebar. */
 export type AppNavItem = {
-  icon: LucideIcon
+  icon: IconSvgElement
   label: string
   view?: View
   children?: string[]

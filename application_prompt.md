@@ -506,7 +506,7 @@ Example businesses:
 ```text
 Acme Trading Ltd
 Nova Retail Ltd
-Acme Distribution
+Acme Manufacturing
 ```
 
 Each business can have different:

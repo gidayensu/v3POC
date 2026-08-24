@@ -1,7 +1,13 @@
 import { useState } from "react"
-import { ChevronDown, LogOut, PanelLeft } from "lucide-react"
+import {
+  ArrowDown01Icon,
+  Logout03Icon,
+  SidebarLeftIcon,
+} from "@hugeicons/core-free-icons"
+import { HugeiconsIcon } from "@hugeicons/react"
 
-import { Logo, ProductIcon } from "@/components/common"
+import wordmark from "@/assets/transflow_main_blue.png"
+import { ProductIcon } from "@/components/common"
 import { appNavSections } from "@/data/appNavigation"
 import { isNavActive, navFooterItems, navSections } from "@/data/navigation"
 import { productByName } from "@/data/products"
@@ -30,7 +36,7 @@ function SectionHead({
       aria-expanded={!folded}
     >
       {title}
-      <ChevronDown />
+      <HugeiconsIcon icon={ArrowDown01Icon} />
     </button>
   )
 }
@@ -51,24 +57,21 @@ function WorkspaceNav({ view, go, close }: Nav) {
           />
           {folded[section.title]
             ? null
-            : section.items.map((item) => {
-                const I = item.icon
-                return (
-                  <button
-                    className={isNavActive(view, item.view) ? "active" : ""}
-                    onClick={() => {
-                      go(item.view)
-                      close()
-                    }}
-                    key={item.view}
-                    title={item.label}
-                  >
-                    <I />
-                    <span>{item.label}</span>
-                    {item.badge ? <em>{item.badge}</em> : null}
-                  </button>
-                )
-              })}
+            : section.items.map((item) => (
+                <button
+                  className={isNavActive(view, item.view) ? "active" : ""}
+                  onClick={() => {
+                    go(item.view)
+                    close()
+                  }}
+                  key={item.view}
+                  title={item.label}
+                >
+                  <HugeiconsIcon icon={item.icon} />
+                  <span>{item.label}</span>
+                  {item.badge ? <em>{item.badge}</em> : null}
+                </button>
+              ))}
         </div>
       ))}
     </nav>
@@ -103,7 +106,6 @@ function ApplicationNav({
           {folded[section.title]
             ? null
             : section.items.map((item) => {
-                const I = item.icon
                 const open = !!expanded[item.label]
                 return (
                   <div key={item.label} className="nav-row">
@@ -123,10 +125,11 @@ function ApplicationNav({
                         }
                       }}
                     >
-                      <I />
+                      <HugeiconsIcon icon={item.icon} />
                       <span>{item.label}</span>
                       {item.children ? (
-                        <ChevronDown
+                        <HugeiconsIcon
+                          icon={ArrowDown01Icon}
                           className={`caret ${open ? "open" : ""}`}
                         />
                       ) : null}
@@ -175,14 +178,32 @@ export function Sidebar({
   const product = activeApp ? productByName(activeApp) : undefined
   return (
     <aside className={`sidebar ${open ? "open" : ""}`}>
-      <header className="sidebar-head">
-        <Logo tone="light" />
+      <header
+        className={`flex h-[78px] flex-none items-center border-r border-b border-[#e3e7ed] bg-white ${
+          collapsed
+            ? "-mx-2.5 justify-center px-2"
+            : "-mx-3 justify-between pr-3.5 pl-6"
+        }`}
+      >
+        {collapsed ? null : (
+          <img
+            className="block h-[22px] w-auto shrink-0"
+            src={wordmark}
+            alt="TransFlow"
+          />
+        )}
         <button
-          className="rail-toggle"
+          type="button"
+          className="group grid size-9 shrink-0 place-items-center rounded-lg transition-colors outline-none hover:bg-[#eef1f6] focus-visible:ring-2 focus-visible:ring-[#0b63f6]/35"
           onClick={toggleCollapsed}
           title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
         >
-          <PanelLeft />
+          {/* Colour lives on the icon: the global `button { color: inherit }`
+              rule outranks Tailwind text utilities on the button itself. */}
+          <HugeiconsIcon
+            icon={SidebarLeftIcon}
+            className="text-[#3d4a63] transition-colors group-hover:text-[#101d42]"
+          />
         </button>
       </header>
 
@@ -198,7 +219,7 @@ export function Sidebar({
             <small>Application</small>
           </p>
           <button onClick={exitApp} title="Leave application">
-            <LogOut />
+            <HugeiconsIcon icon={Logout03Icon} />
           </button>
         </div>
       ) : null}
@@ -210,23 +231,20 @@ export function Sidebar({
       )}
 
       <footer>
-        {navFooterItems.map((item) => {
-          const I = item.icon
-          return (
-            <button
-              key={item.view}
-              className={view === item.view ? "active" : ""}
-              title={item.label}
-              onClick={() => {
-                go(item.view)
-                close()
-              }}
-            >
-              <I />
-              <span>{item.label}</span>
-            </button>
-          )
-        })}
+        {navFooterItems.map((item) => (
+          <button
+            key={item.view}
+            className={view === item.view ? "active" : ""}
+            title={item.label}
+            onClick={() => {
+              go(item.view)
+              close()
+            }}
+          >
+            <HugeiconsIcon icon={item.icon} />
+            <span>{item.label}</span>
+          </button>
+        ))}
       </footer>
     </aside>
   )
