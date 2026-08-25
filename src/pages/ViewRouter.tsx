@@ -61,7 +61,7 @@ function StandardPage({ view, merchant, setMerchant, activeApp }: RouterProps) {
       ) : view === "businesses" ? (
         <BusinessesPage merchant={merchant} setMerchant={setMerchant} />
       ) : view === "audit" ? (
-        <AuditPage />
+        <AuditPage merchant={merchant} />
       ) : view === "support" ? (
         <SupportPage />
       ) : view === "settings" ? (

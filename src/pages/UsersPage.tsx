@@ -6,81 +6,8 @@ import {
 } from "lucide-react"
 
 import { PageActionButton } from "@/components/common"
-
-type UserStatus = "active" | "pending" | "blocked"
-
-type UserRow = {
-  name: string
-  email: string
-  role: string
-  status: UserStatus
-  merchant?: string
-  branch?: string
-  created: string
-}
-
-const users: UserRow[] = [
-  {
-    name: "Aduamah Lawrence",
-    email: "laduamah@arbapexbank.com",
-    role: "RPay Merchant Admin",
-    status: "active",
-    created: "Aug 24, 2026, 3:02 PM",
-  },
-  {
-    name: "Alfred Abankwah",
-    email: "aabankwah@arbapexbank.com",
-    role: "RPay Merchant Admin",
-    status: "active",
-    created: "Aug 24, 2026, 2:57 PM",
-  },
-  {
-    name: "Seth Nkansah",
-    email: "snkansah@acmetrading.com",
-    role: "Global Transactions Admin",
-    status: "active",
-    created: "Aug 20, 2026, 8:24 AM",
-  },
-  {
-    name: "Maame Akua Kyerewaa Bessah",
-    email: "mbessah@acmetrading.com",
-    role: "RPay Marketplace Admin",
-    status: "active",
-    merchant: "Acme Manufacturing",
-    created: "Aug 10, 2026, 3:13 PM",
-  },
-  {
-    name: "Richard A. Mensah",
-    email: "rmensah@novaretail.com",
-    role: "SMS Admin",
-    status: "active",
-    merchant: "Nova Retail Ltd",
-    created: "Aug 10, 2026, 3:11 PM",
-  },
-  {
-    name: "Gideon Okafor",
-    email: "gokafor@acmetrading.com",
-    role: "Apex Admin",
-    status: "active",
-    created: "Aug 10, 2026, 1:23 PM",
-  },
-  {
-    name: "Selasi Pharmacy Shop",
-    email: "shop@selasipharmacy.com",
-    role: "RPay Shop Attendant",
-    status: "pending",
-    merchant: "Acme Manufacturing",
-    created: "Aug 07, 2026, 1:29 PM",
-  },
-  {
-    name: "Alfred Abankwah",
-    email: "alfred.abankwah+terminal@arbapexbank.com",
-    role: "RPay Terminal",
-    status: "blocked",
-    merchant: "Nova Retail Ltd",
-    created: "Aug 04, 2026, 4:10 PM",
-  },
-]
+import { usersForMerchant } from "@/data/users"
+import type { UserStatus } from "@/types"
 
 /** Outlined status pills — one border-and-text pair per state, no fills. */
 const statusPill: Record<UserStatus, { label: string; className: string }> = {
@@ -101,11 +28,9 @@ const columns: { label: string; sortable?: boolean; className?: string }[] = [
   { label: "Actions", className: "w-24" },
 ]
 
-export function UsersPage({
-  merchant = "Acme Trading Ltd",
-}: {
-  merchant?: string
-}) {
+export function UsersPage({ merchant }: { merchant: string }) {
+  /* Only the users of the business currently in context. */
+  const users = usersForMerchant(merchant)
   return (
     <section className="rounded-xl border border-[#e6e9f2] bg-white p-5">
       <div className="mb-4 flex flex-wrap items-center gap-3">
@@ -188,7 +113,7 @@ export function UsersPage({
                   </span>
                 </td>
                 <td className="px-3 py-4 text-[13px] text-[#3f4a60]">
-                  {user.merchant ?? merchant}
+                  {user.merchant}
                 </td>
                 <td className="px-3 py-4 text-[13px] text-[#8b95ad]">
                   {user.branch ?? "--"}
@@ -207,6 +132,16 @@ export function UsersPage({
                 </td>
               </tr>
             ))}
+            {users.length === 0 && (
+              <tr>
+                <td
+                  colSpan={columns.length + 1}
+                  className="px-3 py-10 text-center text-[13px] text-[#6b7793]"
+                >
+                  No users belong to {merchant} yet.
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

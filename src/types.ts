@@ -72,6 +72,19 @@ export type SwitchableBusiness = {
   status: string
 }
 
+export type UserStatus = "active" | "pending" | "blocked"
+
+export type UserRecord = {
+  name: string
+  email: string
+  role: string
+  status: UserStatus
+  /** The business this user belongs to. */
+  merchant: string
+  branch?: string
+  created: string
+}
+
 export type BusinessRecord = {
   initials: string
   name: string
@@ -102,6 +115,8 @@ export type AppNavSection = {
 export type Segment = string | { b: string }
 
 export type LogEntry = {
+  /** Email of the user who performed the action, so lines can be attributed. */
+  actor?: string
   icon?: LucideIcon
   tone?: "blue" | "green"
   text: Segment[]
