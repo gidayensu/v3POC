@@ -1887,7 +1887,7 @@ p {
 .checkline input {
   width: 18px;
   height: 18px;
-  accent-color: #0b63f6;
+  accent-color: #0b3565;
 }
 .activation-note {
   display: flex;
@@ -1938,7 +1938,8 @@ p {
 .breadcrumbs button {
   border: 0;
   background: none;
-  color: #0b63f6;
+  color: #0b3565;
+  font-weight: 600;
   padding: 0;
 }
 .breadcrumbs svg {
@@ -1956,23 +1957,12 @@ p {
 .wizard-head p {
   color: #667085;
 }
-.autosave {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  color: #667085;
-  font-size: 12px;
-}
-.autosave svg {
-  width: 16px;
-  color: #27804a;
-}
 .spinner {
   display: inline-block;
   width: 15px;
   height: 15px;
-  border: 2px solid #b8c4d5;
-  border-top-color: #0b63f6;
+  border: 2px solid #c3ccd9;
+  border-top-color: #0b3565;
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
 }
@@ -1980,73 +1970,8 @@ p {
   border-color: #ffffff66;
   border-top-color: white;
 }
-.wizard-stepper {
-  display: flex;
-  margin: 25px 0 30px;
-  border-bottom: 1px solid #dfe4ea;
-}
-.wizard-stepper button {
-  flex: 1;
-  border: 0;
-  background: none;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 0 8px 14px;
-  color: #667085;
-  position: relative;
-}
-.wizard-stepper button:after {
-  content: "";
-  position: absolute;
-  height: 2px;
-  left: 0;
-  right: 0;
-  bottom: -1px;
-  background: transparent;
-}
-.wizard-stepper button.active {
-  color: #0b63f6;
-}
-.wizard-stepper button.active:after {
-  background: #0b63f6;
-}
-.wizard-stepper button.complete {
-  color: #267849;
-}
-.wizard-stepper button > span {
-  width: 28px;
-  height: 28px;
-  border: 1px solid #cad2dd;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  font-size: 12px;
-}
-.wizard-stepper .active > span {
-  background: #0b63f6;
-  border-color: #0b63f6;
-  color: white;
-}
-.wizard-stepper .complete > span {
-  background: #e9f8ee;
-  border-color: #8bcba2;
-  color: #267849;
-}
-.wizard-stepper svg {
-  width: 15px;
-}
-.wizard-body {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 270px;
-  gap: 28px;
-}
-.wizard-main {
-  min-height: 520px;
-}
 .stage-title {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 .stage-title.row {
   display: flex;
@@ -2064,19 +1989,10 @@ p {
 .merchant-strip {
   display: flex;
   align-items: center;
-  gap: 12px;
-  border: 1px solid #dfe4ea;
-  border-radius: 7px;
-  padding: 15px;
-  margin-bottom: 22px;
-}
-.merchant-strip > svg {
-  width: 40px;
-  height: 40px;
-  padding: 9px;
-  background: #eaf2ff;
-  color: #0b63f6;
-  border-radius: 7px;
+  gap: 14px;
+  border-radius: 9px;
+  padding: 16px 18px;
+  margin-bottom: 24px;
 }
 .merchant-strip p {
   display: grid;
@@ -2087,9 +2003,8 @@ p {
   color: #27804a;
 }
 .wizard-fields {
-  background: white;
   border-top: 1px solid #e5e8ed;
-  padding-top: 20px;
+  padding-top: 24px;
 }
 .wizard-fields label > em {
   display: block;
@@ -2100,50 +2015,6 @@ p {
 }
 .wizard-fields .error {
   border-color: #d64545;
-}
-.wizard-help {
-  height: max-content;
-  border: 1px solid #dfe4ea;
-  border-radius: 7px;
-  background: white;
-  padding: 20px;
-  position: sticky;
-  top: 106px;
-}
-.wizard-help h3 {
-  font-size: 14px;
-}
-.wizard-help > p {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  font-size: 12px;
-}
-.wizard-help > p svg {
-  width: 15px;
-  color: #27804a;
-}
-.wizard-help hr {
-  border: 0;
-  border-top: 1px solid #e4e7ec;
-  margin: 18px 0;
-}
-.wizard-help .outline {
-  width: 100%;
-}
-.wizard-actions {
-  display: flex;
-  justify-content: space-between;
-  border-top: 1px solid #e1e5ea;
-  padding-top: 20px;
-  margin-top: 26px;
-}
-.wizard-actions .primary {
-  min-width: 115px;
-}
-.wizard-actions button:disabled {
-  opacity: 0.65;
-  cursor: wait;
 }
 .account-select {
   display: grid;
@@ -2159,13 +2030,13 @@ p {
   padding: 14px;
 }
 .account-select label.selected {
-  border-color: #0b63f6;
-  background: #f8fbff;
+  border-color: #0b3565;
+  background: #f5f9fd;
 }
 .account-select input {
   width: 18px;
   height: 18px;
-  accent-color: #0b63f6;
+  accent-color: #0b3565;
 }
 .account-select p {
   display: grid;
@@ -2178,14 +2049,14 @@ p {
 .guidance {
   display: flex;
   gap: 10px;
-  background: #f0f6ff;
-  border: 1px solid #cfddf4;
+  background: #f2f6fb;
+  border: 1px solid #dbe5f0;
   border-radius: 7px;
   padding: 14px;
   margin-top: 18px;
 }
 .guidance > svg {
-  color: #0b63f6;
+  color: #0b3565;
 }
 .guidance p {
   display: grid;
@@ -2216,8 +2087,8 @@ p {
   height: 42px;
   padding: 9px;
   border-radius: 50%;
-  background: #eaf2ff;
-  color: #0b63f6;
+  background: #eef3fa;
+  color: #0b3565;
 }
 .branch-empty h3 {
   margin: 12px 0 5px;
@@ -2242,8 +2113,8 @@ p {
   width: 34px;
   height: 34px;
   border-radius: 50%;
-  background: #eaf2ff;
-  color: #0b63f6;
+  background: #eef3fa;
+  color: #0b3565;
   display: grid;
   place-items: center;
   font-weight: 650;
@@ -2285,7 +2156,8 @@ p {
 .review-sections header button {
   border: 0;
   background: none;
-  color: #0b63f6;
+  color: #0b3565;
+  font-weight: 600;
   font-size: 12px;
 }
 .review-sections dl {
@@ -3062,7 +2934,6 @@ p {
 .statement-account,
 .merchant-strip,
 .account-select label,
-.wizard-help,
 .review-sections section,
 .bank-settings article,
 .request-card,
@@ -3101,14 +2972,6 @@ p {
   .setuplayout,
   .configgrid {
     grid-template-columns: 1fr;
-  }
-  .wizard-body {
-    grid-template-columns: 1fr;
-  }
-  .wizard-help {
-    position: static;
-    order: -1;
-    display: none;
   }
   .ops-summary {
     grid-template-columns: 1fr;
@@ -3334,17 +3197,8 @@ p {
   .wizard-page {
     padding: 22px 15px;
   }
-  .wizard-stepper button b {
-    font-size: 10px;
-  }
-  .wizard-stepper button {
-    gap: 4px;
-  }
   .wizard-head {
     display: block;
-  }
-  .autosave {
-    margin-top: 10px;
   }
   .detail-grid.wizard-fields,
   .review-sections {
@@ -3352,9 +3206,6 @@ p {
   }
   .stage-title.row {
     gap: 12px;
-  }
-  .stage-title.row .primary {
-    white-space: nowrap;
   }
   .branch-list article {
     display: grid;

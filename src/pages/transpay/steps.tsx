@@ -1,6 +1,7 @@
 import { Building2, CircleHelp, Landmark, Plus } from "lucide-react"
 
-import { Badge } from "@/components/common"
+import { Badge, BusinessLogo, PageActionButton } from "@/components/common"
+import { businessLogo } from "@/data/businesses"
 import type { Branch, DraftUpdater, TranspayDraft } from "@/types"
 
 type StepProps = {
@@ -9,7 +10,12 @@ type StepProps = {
   errors: Record<string, string>
 }
 
-export function GeneralStep({ draft, update, errors }: StepProps) {
+export function GeneralStep({
+  merchant,
+  draft,
+  update,
+  errors,
+}: StepProps & { merchant: string }) {
   return (
     <>
       <div className="stage-title">
@@ -20,9 +26,9 @@ export function GeneralStep({ draft, update, errors }: StepProps) {
         </p>
       </div>
       <div className="merchant-strip">
-        <Building2 />
+        <BusinessLogo src={businessLogo(merchant)} name={merchant} />
         <p>
-          <b>Acme Trading Ltd</b>
+          <b>{merchant}</b>
           <small>Verified merchant · CS093482016 · Ghana</small>
         </p>
         <Badge s="approved" />
@@ -167,10 +173,9 @@ export function BranchesStep({
             Add every branch that should begin using TransPay on activation.
           </p>
         </div>
-        <button className="primary" onClick={addBranch}>
-          <Plus />
+        <PageActionButton icon={Plus} onClick={addBranch}>
           Add branch
-        </button>
+        </PageActionButton>
       </div>
       {errors.branches && <div className="form-error">{errors.branches}</div>}
       {draft.branches.length === 0 ? (
@@ -178,9 +183,9 @@ export function BranchesStep({
           <Building2 />
           <h3>No branches added yet</h3>
           <p>Create your first branch with a unique name and identifier.</p>
-          <button className="outline" onClick={addBranch}>
+          <PageActionButton variant="outline" onClick={addBranch}>
             Add first branch
-          </button>
+          </PageActionButton>
         </div>
       ) : (
         <div className="branch-list">
@@ -195,9 +200,12 @@ export function BranchesStep({
                 <small>{branch.account}</small>
               </p>
               <Badge s="approved" />
-              <button className="outline" onClick={() => editBranch(branch)}>
+              <PageActionButton
+                variant="outline"
+                onClick={() => editBranch(branch)}
+              >
                 Edit
-              </button>
+              </PageActionButton>
               <button
                 className="danger-link"
                 onClick={() => removeBranch(branch.id)}
@@ -213,9 +221,11 @@ export function BranchesStep({
 }
 
 export function ReviewStep({
+  merchant,
   draft,
   edit,
 }: {
+  merchant: string
   draft: TranspayDraft
   edit: (step: number) => void
 }) {
@@ -234,7 +244,7 @@ export function ReviewStep({
           <dl>
             <div>
               <dt>Merchant</dt>
-              <dd>Acme Trading Ltd</dd>
+              <dd>{merchant}</dd>
             </div>
             <div>
               <dt>Registration</dt>

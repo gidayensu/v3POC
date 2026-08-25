@@ -109,7 +109,13 @@ export function ViewRouter(props: RouterProps) {
       return <TransPayProcessingPage back={toApplications} />
     if (transpayStatus === "active")
       return <TransPayReadyPage back={toApplications} />
-    return <TransPaySetupPage back={toApplications} done={submitTranspay} />
+    return (
+      <TransPaySetupPage
+        merchant={props.merchant}
+        back={toApplications}
+        done={submitTranspay}
+      />
+    )
   }
   return <StandardPage {...props} />
 }
