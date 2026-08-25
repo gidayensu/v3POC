@@ -163,6 +163,8 @@ export function Sidebar({
   close,
   activeApp,
   exitApp,
+  assumedRole,
+  unmanagedBusiness,
   collapsed,
   toggleCollapsed,
 }: {
@@ -172,10 +174,19 @@ export function Sidebar({
   close: () => void
   activeApp: string | null
   exitApp: () => void
+  /** Set when the application is being worked in under an assumed role. */
+  assumedRole?: string
+  /** True in a business we hold a seat on but don't administer. */
+  unmanagedBusiness?: boolean
   collapsed: boolean
   toggleCollapsed: () => void
 }) {
   const product = activeApp ? productByName(activeApp) : undefined
+  /* Merchant settings belong to whoever manages the business. In a business
+     we only hold a seat on, there is nothing there for us to change. */
+  const footerItems = unmanagedBusiness
+    ? navFooterItems.filter((item) => item.view !== "settings")
+    : navFooterItems
   return (
     <aside className={`sidebar ${open ? "open" : ""}`}>
       <header
@@ -216,7 +227,7 @@ export function Sidebar({
           )}
           <p>
             <b>{activeApp}</b>
-            <small>Application</small>
+            <small>{assumedRole || "Application"}</small>
           </p>
           <button onClick={exitApp} title="Leave application">
             <HugeiconsIcon icon={Logout03Icon} />
@@ -231,7 +242,7 @@ export function Sidebar({
       )}
 
       <footer>
-        {navFooterItems.map((item) => (
+        {footerItems.map((item) => (
           <button
             key={item.view}
             className={view === item.view ? "active" : ""}

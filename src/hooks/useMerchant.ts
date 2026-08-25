@@ -14,16 +14,29 @@ export function useMerchant(notify: (message: string) => void) {
   )
   const [reloading, setReloading] = useState(false)
 
-  const setMerchant = (value: string) => {
-    if (value === merchant) return
+  /**
+   * `silent` and `done` let a caller chain something onto the switch — the
+   * product-access flow opens an application straight after, and announces
+   * both halves in one message rather than two competing toasts.
+   */
+  const setMerchant = (
+    value: string,
+    options?: { silent?: boolean; done?: () => void }
+  ) => {
+    if (value === merchant) {
+      options?.done?.()
+      return
+    }
     setReloading(true)
     setTimeout(() => {
       setMerchantState(value)
       localStorage.setItem(keys.merchant, value)
       setReloading(false)
-      notify(
-        `Business switched to ${value}. Applications, permissions and balances have been refreshed.`
-      )
+      if (!options?.silent)
+        notify(
+          `Business switched to ${value}. Applications, permissions and balances have been refreshed.`
+        )
+      options?.done?.()
     }, RELOAD_DELAY)
   }
 

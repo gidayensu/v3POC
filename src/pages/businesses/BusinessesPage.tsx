@@ -1,14 +1,15 @@
-import { useEffect, useState } from "react"
-import { Plus } from "lucide-react"
+import { useEffect, useState, type ReactNode } from "react"
+import { ArrowRight, Plus } from "lucide-react"
 
 import acmeManuLogo from "@/assets/acme_manu.png"
 import acmeLogo from "@/assets/acme.png"
 import novaLogo from "@/assets/nova.png"
-import { Badge, PageActionButton } from "@/components/common"
+import { Badge, BusinessLogo, PageActionButton } from "@/components/common"
+import { switchableBusinesses } from "@/data/businesses"
 import { startExternalOnboarding } from "@/lib/onboarding"
 import { keys, readJSON } from "@/lib/storage"
 import { BusinessDetail } from "@/pages/businesses/BusinessDetail"
-import type { BusinessRecord } from "@/types"
+import type { BusinessRecord, SwitchableBusiness } from "@/types"
 
 const baseBusinesses: BusinessRecord[] = [
   {
@@ -30,6 +31,11 @@ const baseBusinesses: BusinessRecord[] = [
     kind: "Related business",
   },
 ]
+
+/** Businesses we hold a seat on rather than administer. */
+const productAccessBusinesses = switchableBusinesses.filter(
+  (business) => business.access === "product"
+)
 
 /** The Acme/Nova wordmarks sit on a square canvas that is ~70% empty, while the
  *  Acme Manufacturing lockup fills its own. Each carries the scale that lands
@@ -75,6 +81,38 @@ function LogoPlate({ business }: { business: BusinessRecord }) {
   )
 }
 
+/** Heading for one of the two groups the page divides businesses into. */
+function GroupHead({
+  title,
+  count,
+  sub,
+  children,
+}: {
+  title: string
+  count: number
+  sub: string
+  children?: ReactNode
+}) {
+  return (
+    <div className="flex flex-wrap items-end justify-between gap-4 border-b border-[#e8ecf3] pb-4">
+      <div>
+        <div className="flex items-center gap-2.5">
+          <h2 className="m-0 text-[13px] font-semibold tracking-[0.1em] text-[#3d4a63] uppercase">
+            {title}
+          </h2>
+          <span className="grid h-5 min-w-[1.25rem] place-items-center rounded-full bg-[#eef2f8] px-1.5 text-[11px] font-semibold text-[#5b6a8a]">
+            {count}
+          </span>
+        </div>
+        <p className="mt-2 max-w-[62ch] text-[13px] leading-relaxed text-[#97a1b4]">
+          {sub}
+        </p>
+      </div>
+      {children}
+    </div>
+  )
+}
+
 function BusinessCard({
   business,
   open,
@@ -105,6 +143,44 @@ function BusinessCard({
   )
 }
 
+/**
+ * A business whose applications we can open but whose own record we can't.
+ * It offers the switch and nothing else — there is no detail view to link to.
+ */
+function ProductAccessCard({
+  business,
+  select,
+}: {
+  business: SwitchableBusiness
+  select: () => void
+}) {
+  return (
+    <article className="flex flex-col rounded-xl border border-[#e3e7ed] bg-white p-6 shadow-[0_1px_2px_rgb(16_29_66/0.04)] transition-shadow hover:shadow-[0_6px_18px_rgb(16_29_66/0.08)]">
+      <div className="flex items-start justify-between gap-4">
+        <BusinessLogo
+          src={business.logo}
+          name={business.name}
+          className="size-10"
+        />
+      
+      </div>
+
+      <h2 className="mt-6 truncate text-[17px] font-bold tracking-[-0.01em] text-[#101d42]">
+        {business.name}
+      </h2>
+      <p className="mt-1 text-sm text-[#8792a8]">Products Access Only</p>
+
+      <PageActionButton
+        className="mt-6 w-full"
+        icon={ArrowRight}
+        onClick={select}
+      >
+        Switch to business
+      </PageActionButton>
+    </article>
+  )
+}
+
 function AddBusinessCard({ onClick }: { onClick: () => void }) {
   return (
     <button
@@ -128,9 +204,11 @@ function AddBusinessCard({ onClick }: { onClick: () => void }) {
 export function BusinessesPage({
   merchant,
   setMerchant,
+  requestProductAccess,
 }: {
   merchant: string
   setMerchant: (name: string) => void
+  requestProductAccess: (business: SwitchableBusiness) => void
 }) {
   const [selected, setSelected] = useState(
     () => localStorage.getItem(keys.selectedBusiness) || ""
@@ -161,32 +239,52 @@ export function BusinessesPage({
       />
     )
   return (
-    <div className="flex flex-col gap-5">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div className="flex items-baseline gap-2">
-          <h2 className="m-0 text-xs font-semibold tracking-[0.08em] text-[#8792a8] uppercase">
-            Your businesses
-          </h2>
-          <span className="text-xs text-[#a6b0c2]">{businesses.length}</span>
-        </div>
-        <PageActionButton icon={Plus} onClick={addBusiness}>
-          Add business
-        </PageActionButton>
-      </div>
+    <div className="flex flex-col gap-12">
+      <section className="flex flex-col gap-6">
+        <GroupHead
+          title="Businesses you manage"
+          count={businesses.length}
+          sub="Full access to their applications and settings."
+        >
+          <PageActionButton icon={Plus} onClick={addBusiness}>
+            Add business
+          </PageActionButton>
+        </GroupHead>
 
-      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-        {businesses.map((x) => (
-          <BusinessCard
-            key={x.name}
-            business={x}
-            open={() => {
-              setSelected(x.name)
-              localStorage.setItem(keys.selectedBusiness, x.name)
-            }}
+        <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          {businesses.map((x) => (
+            <BusinessCard
+              key={x.name}
+              business={x}
+              open={() => {
+                setSelected(x.name)
+                localStorage.setItem(keys.selectedBusiness, x.name)
+              }}
+            />
+          ))}
+          <AddBusinessCard onClick={addBusiness} />
+        </div>
+      </section>
+
+      {productAccessBusinesses.length > 0 && (
+        <section className="flex flex-col gap-6">
+          <GroupHead
+            title="Businesses you have product access to"
+            count={productAccessBusinesses.length}
+            sub="You can switch in and work inside their applications."
           />
-        ))}
-        <AddBusinessCard onClick={addBusiness} />
-      </div>
+
+          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+            {productAccessBusinesses.map((x) => (
+              <ProductAccessCard
+                key={x.name}
+                business={x}
+                select={() => requestProductAccess(x)}
+              />
+            ))}
+          </div>
+        </section>
+      )}
     </div>
   )
 }

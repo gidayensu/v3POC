@@ -15,7 +15,7 @@ import { TransPayProcessingPage } from "@/pages/transpay/TransPayProcessingPage"
 import { TransPayReadyPage } from "@/pages/transpay/TransPayReadyPage"
 import { TransPaySetupPage } from "@/pages/transpay/TransPaySetupPage"
 import { UsersPage } from "@/pages/UsersPage"
-import type { TranspayStatus, View } from "@/types"
+import type { SwitchableBusiness, TranspayStatus, View } from "@/types"
 
 /** Title and subtitle for the views that render inside a standard page header. */
 const pageMeta: Record<string, [string, string]> = {
@@ -45,10 +45,17 @@ type RouterProps = {
   openGateway: () => void
   submitTranspay: () => void
   requestAppSwitch: (app: string) => void
+  requestProductAccess: (business: SwitchableBusiness) => void
   activeApp: string | null
 }
 
-function StandardPage({ view, merchant, setMerchant, activeApp }: RouterProps) {
+function StandardPage({
+  view,
+  merchant,
+  setMerchant,
+  activeApp,
+  requestProductAccess,
+}: RouterProps) {
   const [title, sub] = pageMeta[view] || pageMeta.product
   const heading =
     view === "product" && activeApp ? `${activeApp} overview` : title
@@ -59,7 +66,11 @@ function StandardPage({ view, merchant, setMerchant, activeApp }: RouterProps) {
       ) : view === "approvals" ? (
         <ApprovalsPage />
       ) : view === "businesses" ? (
-        <BusinessesPage merchant={merchant} setMerchant={setMerchant} />
+        <BusinessesPage
+          merchant={merchant}
+          setMerchant={setMerchant}
+          requestProductAccess={requestProductAccess}
+        />
       ) : view === "audit" ? (
         <AuditPage merchant={merchant} />
       ) : view === "support" ? (

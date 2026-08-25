@@ -1,6 +1,7 @@
 export { AppSwitcher } from "./AppSwitcher"
 export { BusinessMenu } from "./BusinessMenu"
 export { BusinessSwitchModal } from "./BusinessSwitchModal"
+export { ProductAccessSwitchModal } from "./ProductAccessSwitchModal"
 export { DataReload } from "./DataReload"
 export { Notifications } from "./Notifications"
 export { ProductNav, ProductShell, ProductTop } from "./ProductShell"

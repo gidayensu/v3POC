@@ -14,6 +14,10 @@ export const keys = {
   merchantRequestEmail: "merchant-request-email",
   merchantActiveEmail: "merchant-active-email",
   merchantChangeNotification: "merchant-change-notification",
+  /** Role assumed on a product-access business's application instance. */
+  assumedRole: "transflow-assumed-role",
+  /** The business to restore when a product-access context is left. */
+  returnBusiness: "transflow-return-business",
   pinnedApps: "transflow-pinned-apps",
   hiddenRecents: "transflow-hidden-recents",
 } as const

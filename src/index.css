@@ -2266,6 +2266,9 @@ p {
 .app-exit-modal footer {
   justify-content: center;
 }
+.product-access-modal p b {
+  color: #101d42;
+}
 .business-switch-modal p b {
   color: #101d42;
 }
@@ -3230,5 +3233,342 @@ p {
   }
   .processing-steps span {
     font-size: 10px;
+  }
+}
+
+/* --- Settlement destination (bank accounts / prepaid recycling) --- */
+.single-destination {
+  display: flex;
+  gap: 10px;
+  background: #f0f6ff;
+  border: 1px solid #cfddf4;
+  border-radius: 6px;
+  padding: 13px;
+  margin-bottom: 16px;
+}
+.single-destination > svg {
+  color: #0b63f6;
+  flex-shrink: 0;
+}
+.single-destination p {
+  display: grid;
+  gap: 3px;
+  margin: 0;
+}
+.single-destination p > span {
+  color: #667085;
+  font-size: 12px;
+}
+.settle-subhead {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #667085;
+  margin: 22px 0 10px;
+}
+.bank-logo.image {
+  background: white;
+  border: 1px solid #e3e7ec;
+  padding: 7px;
+}
+.bank-logo.image img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+.requested-destination article {
+  border-style: dashed;
+  background: #fcfcfd;
+}
+.settle-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+.settle-options article {
+  position: relative;
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  border: 1px solid #dfe4ea;
+  border-radius: 7px;
+  padding: 18px;
+  background: white;
+}
+.settle-options article.active {
+  border-color: #9ebdec;
+  background: #f8fbff;
+}
+.settle-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  background: #f2f5f9;
+  color: #55697f;
+}
+.settle-icon.recycle {
+  background: #e8f6ee;
+  color: #1e7a49;
+}
+.settle-options h4 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #101d42;
+  margin: 2px 0 0;
+}
+.settle-options p {
+  margin: 0;
+  color: #667085;
+  font-size: 13px;
+}
+.settle-banks {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.settle-banks img {
+  height: 34px;
+  width: 74px;
+  object-fit: contain;
+  border: 1px solid #e3e7ec;
+  border-radius: 5px;
+  background: white;
+  padding: 5px;
+}
+.settle-hint {
+  color: #1e7a49;
+  font-size: 12px;
+}
+.settle-options button {
+  justify-self: start;
+  margin-top: 6px;
+}
+
+/* Bank picker modal */
+.settle-check {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  color: #1e7a49;
+  display: grid;
+}
+.settle-check svg {
+  width: 20px;
+  height: 20px;
+}
+.bank-trigger {
+  display: flex;
+  width: 100%;
+  height: 42px;
+  margin-top: 6px;
+  border: 1px solid #cfd6df;
+  border-radius: 5px;
+  padding: 0 11px;
+  background: white;
+  font-size: 14px;
+  font-weight: 400;
+  color: #101d42;
+}
+.bank-trigger[data-popup-open],
+.bank-trigger:focus-visible {
+  border-color: #0b3565;
+  box-shadow: 0 0 0 3px #0b356522;
+}
+.bank-trigger[data-placeholder] {
+  color: #98a2b3;
+}
+.bank-trigger svg {
+  width: 16px;
+  height: 16px;
+}
+/* The select popup is portaled to the body, so it has to clear the modal
+   overlay's stacking context to be visible at all. */
+div:has(> [data-slot="select-content"]) {
+  z-index: 200;
+}
+.bank-options {
+  border-radius: 6px;
+  padding: 5px;
+  background: white;
+  border: 1px solid #dfe4ea;
+  box-shadow: 0 12px 28px #0f204a1f;
+}
+.bank-options [data-slot="select-item"] {
+  gap: 10px;
+  padding: 8px 30px 8px 8px;
+  font-size: 14px;
+  color: #101d42;
+}
+.bank-options img {
+  height: 24px;
+  width: 58px;
+  object-fit: contain;
+}
+.bank-trigger.selected {
+  padding-right: 11px;
+}
+.bank-trigger.selected > svg {
+  display: none;
+}
+.bank-selected {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+.bank-selected img {
+  height: 26px;
+  width: 62px;
+  object-fit: contain;
+}
+.bank-selected b {
+  flex: 1;
+  font-size: 14px;
+  color: #101d42;
+  text-align: left;
+}
+.bank-selected em {
+  font-style: normal;
+  font-size: 13px;
+  font-weight: 700;
+  color: #0b3565;
+  text-decoration: underline;
+}
+.change .field {
+  color: #344054;
+}
+.field input {
+  display: block;
+  width: 100%;
+  height: 42px;
+  margin-top: 6px;
+  border: 1px solid #cfd6df;
+  border-radius: 5px;
+  padding: 0 11px;
+  background: white;
+  font-weight: 400;
+  color: #101d42;
+}
+.field input::placeholder,
+.field textarea::placeholder {
+  color: #98a2b3;
+}
+.field input:focus,
+.field textarea:focus {
+  outline: 0;
+  border-color: #0b3565;
+  box-shadow: 0 0 0 3px #0b356522;
+}
+
+/* Recycling modal */
+.recycle-hero {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f1f8f4;
+  border: 1px solid #cbe5d6;
+  border-radius: 7px;
+  padding: 14px;
+  margin: 18px 0 14px;
+}
+.recycle-hero > span {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: grid;
+  place-items: center;
+  background: #dff0e6;
+  color: #1e7a49;
+  flex-shrink: 0;
+}
+.recycle-hero p {
+  display: grid;
+  gap: 3px;
+  margin: 0;
+}
+.recycle-hero p span {
+  color: #667085;
+  font-size: 12px;
+}
+.recycle-points {
+  display: grid;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.recycle-points li {
+  display: grid;
+  gap: 3px;
+  border: 1px solid #e4e7ec;
+  border-radius: 6px;
+  padding: 11px 13px;
+}
+.recycle-points b {
+  font-size: 13px;
+  color: #101d42;
+}
+.recycle-points small {
+  color: #667085;
+}
+.recycle-warning {
+  display: flex;
+  gap: 10px;
+  background: #fff7ed;
+  border: 1px solid #f3ddbf;
+  border-radius: 6px;
+  padding: 13px;
+  margin-top: 14px;
+}
+.recycle-warning > svg {
+  color: #c76700;
+  flex-shrink: 0;
+}
+.recycle-warning p {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+}
+.recycle-warning span {
+  color: #7a5a2e;
+  font-size: 12px;
+}
+.consent-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  border: 1px solid #dce1e8;
+  border-radius: 6px;
+  padding: 12px 13px;
+  margin-top: 14px;
+  font-size: 13px;
+  color: #344054;
+}
+.consent-check input {
+  width: 17px;
+  height: 17px;
+  margin-top: 1px;
+  accent-color: #0b3565;
+  flex-shrink: 0;
+}
+
+/* Submit-for-approval confirmation */
+.settlement-confirm {
+  width: min(540px, 100%);
+}
+.settlement-confirm p b {
+  color: #101d42;
+}
+
+@media (max-width: 760px) {
+  .settle-options {
+    grid-template-columns: 1fr;
+  }
+  .bank-selected img {
+    width: 52px;
   }
 }

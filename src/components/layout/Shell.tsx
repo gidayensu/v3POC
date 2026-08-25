@@ -5,6 +5,7 @@ import { DataReload } from "@/components/layout/DataReload"
 import { SearchBox } from "@/components/layout/SearchBox"
 import { Sidebar } from "@/components/layout/Sidebar"
 import { Topbar } from "@/components/layout/Topbar"
+import { isProductAccess } from "@/data/businesses"
 import type { SwitchableBusiness, TranspayStatus, View } from "@/types"
 
 export function Shell({
@@ -19,6 +20,8 @@ export function Shell({
   activeApp,
   exitApp,
   switchingApp,
+  requestProductAccess,
+  assumedRole,
 }: {
   view: View
   go: (view: View) => void
@@ -31,6 +34,9 @@ export function Shell({
   activeApp: string | null
   exitApp: () => void
   switchingApp: string | null
+  /** Businesses we only hold a seat on switch through their own dialog. */
+  requestProductAccess: (business: SwitchableBusiness) => void
+  assumedRole: string
 }) {
   const [mobile, setMobile] = useState(false)
   const [search, setSearch] = useState(false)
@@ -46,6 +52,8 @@ export function Shell({
         close={() => setMobile(false)}
         activeApp={activeApp}
         exitApp={exitApp}
+        assumedRole={assumedRole}
+        unmanagedBusiness={isProductAccess(merchant)}
         collapsed={collapsed}
         toggleCollapsed={() => setCollapsed((c) => !c)}
       />
@@ -53,7 +61,11 @@ export function Shell({
         <Topbar
           go={go}
           merchant={merchant}
-          requestBusinessSwitch={setPendingBusiness}
+          requestBusinessSwitch={(business) =>
+            business.access === "product"
+              ? requestProductAccess(business)
+              : setPendingBusiness(business)
+          }
           toggleSidebar={() => setMobile((open) => !open)}
           openSwitcher={openSwitcher}
           openSearch={() => setSearch(true)}

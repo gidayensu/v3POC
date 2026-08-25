@@ -15,7 +15,8 @@ export function useApplication(notify: (message: string) => void) {
   )
   const [switching, setSwitching] = useState<string | null>(null)
 
-  const enterApp = (name: string, done: () => void) => {
+  /** `message` overrides the announcement, for entries with more to say. */
+  const enterApp = (name: string, done: () => void, message?: string) => {
     if (name === app) {
       done()
       return
@@ -27,7 +28,8 @@ export function useApplication(notify: (message: string) => void) {
       setSwitching(null)
       done()
       notify(
-        `You're now working in ${name}. Navigation and data are scoped to this application.`
+        message ||
+          `You're now working in ${name}. Navigation and data are scoped to this application.`
       )
     }, SWITCH_DELAY)
   }

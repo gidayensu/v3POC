@@ -55,9 +55,11 @@ export function BusinessMenu({
                   {item.name}
                 </b>
                 <small className="text-xs text-[#788294]">
-                  {item.status === "onboarding"
-                    ? "Onboarding incomplete"
-                    : "Approved business"}
+                  {item.access === "product"
+                    ? "Products Access Only"
+                    : item.status === "onboarding"
+                      ? "Onboarding incomplete"
+                      : "Approved business"}
                 </small>
               </p>
               {item.name === merchant && (

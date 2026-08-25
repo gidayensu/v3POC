@@ -64,12 +64,24 @@ export type TranspayDraft = {
   branches: Branch[]
 }
 
+/**
+ * How much of a business the signed-in user holds. `managed` businesses are
+ * theirs to administer; `product` businesses expose their applications only —
+ * the business itself cannot be opened or edited.
+ */
+export type BusinessAccess = "managed" | "product"
+
 export type SwitchableBusiness = {
   name: string
   initials: string
   /** Imported logo asset, shown wherever the business is identified. */
   logo: string
   status: string
+  access: BusinessAccess
+  /** `product` businesses only: the application the switch lands in. */
+  productApp?: string
+  /** `product` businesses only: the roles that instance can be assumed under. */
+  roles?: string[]
 }
 
 export type UserStatus = "active" | "pending" | "blocked"
