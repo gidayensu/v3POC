@@ -33,6 +33,7 @@ function ChangeStatusBanner({ status }: { status: string }) {
           <b>Merchant change approved</b>
           <span>The requested business email is now active.</span>
         </p>
+        <Badge s="approved" />
       </div>
     )
   return null
@@ -71,7 +72,7 @@ export function SettingsPage({
           />
         )}
         {tab === "Bank accounts" && <BankSettings />}
-        {tab === "Branding" && <BrandSettings />}
+        {tab === "Branding" && <BrandSettings merchant={merchant} />}
         {tab === "Setup requests" && <SetupRequests />}
       </section>
       {requestOpen && (

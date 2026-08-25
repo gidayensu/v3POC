@@ -29,12 +29,12 @@ export const navSections: NavSection[] = [
     items: [
       { icon: Building03Icon, label: "Businesses", view: "businesses" },
       { icon: UserMultipleIcon, label: "Users & access", view: "users" },
-      {
-        icon: CheckmarkBadge01Icon,
-        label: "Approvals",
-        view: "approvals",
-        badge: 2,
-      },
+      // {
+      //   icon: CheckmarkBadge01Icon,
+      //   label: "Approvals",
+      //   view: "approvals",
+      //   badge: 2,
+      // },
       { icon: TaskDaily01Icon, label: "Activity logs", view: "audit" },
     ],
   },

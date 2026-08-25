@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Landmark, MoreHorizontal, Plus, SlidersHorizontal } from "lucide-react"
 
-import { Badge } from "@/components/common"
+import { Badge, PageActionButton } from "@/components/common"
 
 const accounts = [
   [
@@ -29,14 +29,12 @@ export function BankSettings() {
           <h2>Bank accounts</h2>
           <p>Accounts available to Transflow applications for this merchant.</p>
         </div>
-        <button className="primary">
-          <Plus /> Request bank account
-        </button>
+        <PageActionButton icon={Plus}>Request bank account</PageActionButton>
       </div>
       <div className="bank-settings">
-        {accounts.map(([bank, name, last, note, status], i) => (
+        {accounts.map(([bank, name, last, note, status]) => (
           <article key={last}>
-            <div className={`bank-logo b${i}`}>
+            <div className="bank-logo">
               <Landmark />
             </div>
             <div>
@@ -62,9 +60,9 @@ export function BankSettings() {
             multi-account access.
           </p>
         </div>
-        <button className="outline" onClick={() => setRequested(true)}>
+        <PageActionButton variant="outline" onClick={() => setRequested(true)}>
           {requested ? "Request submitted" : "Request setup"}
-        </button>
+        </PageActionButton>
       </section>
     </>
   )

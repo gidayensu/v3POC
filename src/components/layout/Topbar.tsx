@@ -82,7 +82,7 @@ export function Topbar({
           title="Notifications"
         >
           <Bell />
-          <em className="absolute top-0.5 right-0.5 rounded-full bg-[#0b63f6] px-1.5 py-px text-[10px] leading-tight font-semibold text-white not-italic">
+          <em className="absolute top-0.5 right-0.5 rounded-full bg-[#dc2626] px-1.5 py-px text-[10px] leading-tight font-semibold text-white not-italic">
             5
           </em>
         </button>

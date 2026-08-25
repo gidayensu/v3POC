@@ -110,9 +110,9 @@ function AddBusinessCard({ onClick }: { onClick: () => void }) {
     <button
       type="button"
       onClick={onClick}
-      className="group flex flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-[#ccd5e6] bg-transparent p-6 text-center transition-colors hover:border-[#243cc4] hover:bg-[#f7f9ff]"
+      className="group flex flex-col items-center justify-center gap-3 rounded-xl border border-dashed border-[#ccd5e6] bg-transparent p-6 text-center transition-colors hover:border-[#0b3565] hover:bg-[#f5f8fc]"
     >
-      <span className="grid size-11 place-items-center rounded-full bg-[#eef1fb] text-[#243cc4] transition-colors group-hover:bg-[#e2e7fb]">
+      <span className="grid size-11 place-items-center rounded-full bg-[#eef3fa] text-[#0b3565] transition-colors group-hover:bg-[#e0e9f3]">
         <Plus className="size-5" strokeWidth={2.25} />
       </span>
       <b className="text-sm font-semibold text-[#101d42]">

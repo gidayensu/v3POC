@@ -14,6 +14,8 @@ export const keys = {
   merchantRequestEmail: "merchant-request-email",
   merchantActiveEmail: "merchant-active-email",
   merchantChangeNotification: "merchant-change-notification",
+  pinnedApps: "transflow-pinned-apps",
+  hiddenRecents: "transflow-hidden-recents",
 } as const
 
 /** Reads and parses JSON from localStorage, falling back on any failure. */

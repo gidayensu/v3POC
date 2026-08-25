@@ -92,7 +92,14 @@ export default function App() {
           }}
         />
       )}
-      {switcher && <AppSwitcher close={() => setSwitcher(false)} go={launch} />}
+      {switcher && (
+        <AppSwitcher
+          close={() => setSwitcher(false)}
+          go={launch}
+          goView={go}
+          activeApp={application.app}
+        />
+      )}
       {pendingApp && (
         <AppSwitchModal
           pending={pendingApp}

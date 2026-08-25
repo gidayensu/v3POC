@@ -179,7 +179,7 @@ export function Sidebar({
   return (
     <aside className={`sidebar ${open ? "open" : ""}`}>
       <header
-        className={`flex h-[78px] flex-none items-center border-r border-b border-[#e3e7ed] bg-white ${
+        className={`flex h-[78px] flex-none items-center border-r border-b border-[#dfe5ec] bg-white ${
           collapsed
             ? "-mx-2.5 justify-center px-2"
             : "-mx-3 justify-between pr-3.5 pl-6"
@@ -194,7 +194,7 @@ export function Sidebar({
         )}
         <button
           type="button"
-          className="group grid size-9 shrink-0 place-items-center rounded-lg transition-colors outline-none hover:bg-[#eef1f6] focus-visible:ring-2 focus-visible:ring-[#0b63f6]/35"
+          className="group grid size-9 shrink-0 place-items-center rounded-lg transition-colors outline-none hover:bg-[#eef3f9] focus-visible:ring-2 focus-visible:ring-[#002047]/35"
           onClick={toggleCollapsed}
           title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
         >
@@ -202,7 +202,7 @@ export function Sidebar({
               rule outranks Tailwind text utilities on the button itself. */}
           <HugeiconsIcon
             icon={SidebarLeftIcon}
-            className="text-[#3d4a63] transition-colors group-hover:text-[#101d42]"
+            className="text-[#3d5772] transition-colors group-hover:text-[#002047]"
           />
         </button>
       </header>

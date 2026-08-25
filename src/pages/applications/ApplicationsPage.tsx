@@ -1,8 +1,16 @@
 import { useEffect, useState } from "react"
+import {
+  ArrowUpRight01Icon,
+  InformationCircleIcon,
+  TaskDaily01Icon,
+  UserMultipleIcon,
+} from "@hugeicons/core-free-icons"
 
 import suiteMark from "@/assets/trans_blue.png"
-import { Badge, Page, PageActionButton } from "@/components/common"
+import { Badge, Page } from "@/components/common"
 import { PRODUCT_GROUPS, productsInGroup } from "@/data/products"
+import { ApplicationMenu, type MenuAction } from "./ApplicationMenu"
+import { ProductAboutDialog } from "./ProductAboutDialog"
 import type { Product, TranspayStatus, View } from "@/types"
 
 const displayStatus = (p: Product, transpayStatus: TranspayStatus) =>
@@ -80,7 +88,7 @@ function CatalogueSkeleton({ merchant }: { merchant: string }) {
               <span className={`h-3.5 max-w-80 ${shimmer}`} />
             </div>
             <em className={`h-6 w-36 shrink-0 rounded-md ${shimmer}`} />
-            <em className={`h-9 w-33 shrink-0 rounded-md ${shimmer}`} />
+            <em className={`size-9 shrink-0 rounded-md ${shimmer}`} />
           </div>
         ))}
       </div>
@@ -100,10 +108,50 @@ export function ApplicationsPage({
   requestAppSwitch: (app: string) => void
 }) {
   const [loading, setLoading] = useState(true)
+  const [about, setAbout] = useState<Product | null>(null)
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 420)
     return () => clearTimeout(timer)
   }, [])
+
+  /** What clicking the row itself does: enter a live app, else its journey. */
+  const openProduct = (p: Product) =>
+    canOpen(p, transpayStatus)
+      ? requestAppSwitch(p.name)
+      : go(destination(p.name))
+
+  const actionsFor = (p: Product): MenuAction[] =>
+    canOpen(p, transpayStatus)
+      ? [
+          {
+            label: ctaLabel(p, transpayStatus),
+            icon: ArrowUpRight01Icon,
+            run: () => openProduct(p),
+          },
+          {
+            label: "View users",
+            icon: UserMultipleIcon,
+            run: () => go("users"),
+          },
+          {
+            label: "View activity logs",
+            icon: TaskDaily01Icon,
+            run: () => go("audit"),
+          },
+        ]
+      : [
+          {
+            label: ctaLabel(p, transpayStatus),
+            icon: ArrowUpRight01Icon,
+            run: () => openProduct(p),
+          },
+          {
+            label: "About the product",
+            icon: InformationCircleIcon,
+            run: () => setAbout(p),
+          },
+        ]
+
   if (loading) return <CatalogueSkeleton merchant={merchant} />
   return (
     <Page
@@ -118,7 +166,16 @@ export function ApplicationsPage({
               {items.map((p) => (
                 <div
                   key={p.name}
-                  className="flex items-center gap-5 rounded-lg bg-white px-6 py-5 shadow-[0_1px_2px_rgb(16_29_66/0.04)] transition-shadow hover:shadow-[0_6px_18px_rgb(16_29_66/0.08)]"
+                  role="button"
+                  tabIndex={0}
+                  aria-label={ctaLabel(p, transpayStatus)}
+                  className="flex cursor-pointer items-center gap-5 rounded-lg bg-white px-6 py-5 shadow-[0_1px_2px_rgb(16_29_66/0.04)] transition-shadow outline-none hover:shadow-[0_6px_18px_rgb(16_29_66/0.08)] focus-visible:ring-2 focus-visible:ring-[#0b63f6]/35"
+                  onClick={() => openProduct(p)}
+                  onKeyDown={(e) => {
+                    if (e.key !== "Enter" && e.key !== " ") return
+                    e.preventDefault()
+                    openProduct(p)
+                  }}
                 >
                   <img
                     className="size-12 shrink-0 rounded-full object-cover"
@@ -136,23 +193,22 @@ export function ApplicationsPage({
                   <div className="hidden w-36 shrink-0 justify-start sm:flex">
                     <Badge s={displayStatus(p, transpayStatus)} />
                   </div>
-                  <PageActionButton
-                    variant={canOpen(p, transpayStatus) ? "filled" : "outline"}
-                    className="sm:min-w-33"
-                    onClick={() =>
-                      canOpen(p, transpayStatus)
-                        ? requestAppSwitch(p.name)
-                        : go(destination(p.name))
-                    }
-                  >
-                    {ctaLabel(p, transpayStatus)}
-                  </PageActionButton>
+                  <ApplicationMenu label={p.name} actions={actionsFor(p)} />
                 </div>
               ))}
             </div>
           </section>
         ))}
       </div>
+      {about && (
+        <ProductAboutDialog
+          product={about}
+          status={displayStatus(about, transpayStatus)}
+          ctaLabel={ctaLabel(about, transpayStatus)}
+          cta={() => openProduct(about)}
+          close={() => setAbout(null)}
+        />
+      )}
     </Page>
   )
 }

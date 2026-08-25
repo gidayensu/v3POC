@@ -1,12 +1,6 @@
-import {
-  Banknote,
-  ChevronDown,
-  ChevronRight,
-  FileText,
-  Landmark,
-} from "lucide-react"
+import { Banknote, ChevronDown, ChevronRight, Landmark } from "lucide-react"
 
-import { Badge } from "@/components/common"
+import { Badge, FileTypeIcon } from "@/components/common"
 
 function ActivityTab({ merchant }: { merchant: string }) {
   const activity = [
@@ -106,9 +100,7 @@ function StatementsTab() {
       <div className="report-list">
         {statements.map((statement, i) => (
           <article key={statement[0]}>
-            <span>
-              <FileText />
-            </span>
+            <FileTypeIcon meta={statement[1]} className="size-9.5" />
             <p>
               <b>{statement[0]}</b>
               <small>{statement[1]}</small>

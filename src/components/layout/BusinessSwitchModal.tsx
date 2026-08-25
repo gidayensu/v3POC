@@ -1,6 +1,8 @@
-import { Building2, Clock3 } from "lucide-react"
-
-import { ConfirmDialog } from "@/components/common"
+import {
+  BusinessLogo,
+  ConfirmDialog,
+  PageActionButton,
+} from "@/components/common"
 import { keys } from "@/lib/storage"
 import type { SwitchableBusiness, View } from "@/types"
 
@@ -18,26 +20,48 @@ export function BusinessSwitchModal({
   go: (view: View) => void
 }) {
   const onboarding = pending.status === "onboarding"
+  const confirm = () => {
+    if (onboarding) {
+      localStorage.setItem(keys.selectedBusiness, pending.name)
+      window.dispatchEvent(
+        new CustomEvent("transflow-business-detail", { detail: pending.name })
+      )
+      go("businesses")
+    } else setMerchant(pending.name)
+    close()
+  }
   return (
     <ConfirmDialog
       className="business-switch-modal"
-      iconClass={onboarding ? "warning" : "switch-icon"}
-      icon={onboarding ? <Clock3 /> : <Building2 />}
-      title={onboarding ? "Onboarding not complete" : "Switch business?"}
-      confirmLabel={onboarding ? "View onboarding" : "Switch business"}
+      /* The business identifies itself by its own mark, not a generic glyph. */
+      iconClass="mx-auto block w-fit"
+      icon={
+        <BusinessLogo
+          src={pending.logo}
+          name={pending.name}
+          className="size-14"
+        />
+      }
+      title={
+        onboarding ? "Onboarding not complete" : `Switch to ${pending.name}?`
+      }
+      titleClass="text-[22px] leading-tight font-bold tracking-[-0.02em] text-[#101d42]"
       close={close}
-      confirm={() => {
-        if (onboarding) {
-          localStorage.setItem(keys.selectedBusiness, pending.name)
-          window.dispatchEvent(
-            new CustomEvent("transflow-business-detail", {
-              detail: pending.name,
-            })
-          )
-          go("businesses")
-        } else setMerchant(pending.name)
-        close()
-      }}
+      confirm={confirm}
+      footer={
+        <>
+          <PageActionButton
+            variant="outline"
+            className="min-w-[120px]"
+            onClick={close}
+          >
+            Cancel
+          </PageActionButton>
+          <PageActionButton className="min-w-[120px]" onClick={confirm}>
+            {onboarding ? "View onboarding" : "Switch business"}
+          </PageActionButton>
+        </>
+      }
     >
       {onboarding ? (
         <p>

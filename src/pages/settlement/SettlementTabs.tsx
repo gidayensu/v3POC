@@ -1,12 +1,6 @@
-import {
-  CheckCircle2,
-  CircleHelp,
-  Clock3,
-  FileText,
-  ShieldCheck,
-} from "lucide-react"
+import { CheckCircle2, CircleHelp, Clock3, ShieldCheck } from "lucide-react"
 
-import { Badge } from "@/components/common"
+import { Badge, FileTypeIcon } from "@/components/common"
 
 function BatchesTab({ merchant }: { merchant: string }) {
   const batches = [
@@ -173,9 +167,7 @@ function ReportsTab() {
       <div className="report-list">
         {reports.map((report, i) => (
           <article key={report[0]}>
-            <span>
-              <FileText />
-            </span>
+            <FileTypeIcon meta={report[1]} className="size-9.5" />
             <p>
               <b>{report[0]}</b>
               <small>

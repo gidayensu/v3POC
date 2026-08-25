@@ -1,7 +1,4 @@
-import { LayoutGrid } from "lucide-react"
-
-import { ConfirmDialog, ProductIcon } from "@/components/common"
-import { productByName } from "@/data/products"
+import { ConfirmDialog, PageActionButton } from "@/components/common"
 
 export function AppSwitchModal({
   pending,
@@ -14,16 +11,27 @@ export function AppSwitchModal({
   close: () => void
   confirm: () => void
 }) {
-  const product = productByName(pending)
   return (
     <ConfirmDialog
       className="app-switch-modal"
-      iconClass="switch-icon"
-      icon={product ? <ProductIcon p={product} /> : <LayoutGrid />}
       title={`Switch to ${pending}?`}
-      confirmLabel={`Open ${pending}`}
+      titleClass="text-[22px] leading-tight font-bold tracking-[-0.02em] text-[#101d42]"
       close={close}
       confirm={confirm}
+      footer={
+        <>
+          <PageActionButton
+            variant="outline"
+            className="min-w-[120px]"
+            onClick={close}
+          >
+            Cancel
+          </PageActionButton>
+          <PageActionButton className="min-w-[120px]" onClick={confirm}>
+            Open {pending}
+          </PageActionButton>
+        </>
+      }
     >
       <p>
         {current ? (

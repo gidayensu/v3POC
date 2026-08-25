@@ -1,27 +1,9 @@
 import { Check, ChevronDown, Plus } from "lucide-react"
 
+import { BusinessLogo } from "@/components/common"
 import { businessLogo, switchableBusinesses } from "@/data/businesses"
 import { startExternalOnboarding } from "@/lib/onboarding"
 import type { SwitchableBusiness, View } from "@/types"
-
-/** Framed tile that keeps every merchant logo the same size and alignment. */
-function BusinessLogo({ src, name }: { src?: string; name: string }) {
-  return (
-    <span className="grid size-10 shrink-0 place-items-center overflow-hidden rounded-[5px] border border-[#e3e7ed] bg-white p-1.5">
-      {src ? (
-        <img
-          className="max-h-full max-w-full object-contain"
-          src={src}
-          alt=""
-        />
-      ) : (
-        <b className="text-[10px] font-bold text-[#6c7688]">
-          {name.slice(0, 2).toUpperCase()}
-        </b>
-      )}
-    </span>
-  )
-}
 
 export function BusinessMenu({
   merchant,

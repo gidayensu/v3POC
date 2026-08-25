@@ -1,6 +1,14 @@
 import { Upload } from "lucide-react"
 
-export function BrandSettings() {
+import { PageActionButton } from "@/components/common"
+import { businessLogo } from "@/data/businesses"
+
+export function BrandSettings({
+  merchant = "Acme Trading Ltd",
+}: {
+  merchant?: string
+}) {
+  const logo = businessLogo(merchant)
   return (
     <>
       <div className="setting-head">
@@ -11,9 +19,11 @@ export function BrandSettings() {
       </div>
       <div className="brand-card">
         <div className="brand-preview">
-          <span>ACME</span>
+          <span>
+            {logo ? <img src={logo} alt={merchant} /> : merchant.slice(0, 4)}
+          </span>
           <div>
-            <h3>Acme Trading Ltd</h3>
+            <h3>{merchant}</h3>
             <p>Wholesale and distribution</p>
           </div>
         </div>
@@ -33,9 +43,11 @@ export function BrandSettings() {
         </label>
         <label>
           Brand colour
-          <input type="color" defaultValue="#0b63f6" />
+          <input type="color" defaultValue="#002047" />
         </label>
-        <button className="primary">Request branding change</button>
+        <div className="setting-actions">
+          <PageActionButton>Request branding change</PageActionButton>
+        </div>
       </div>
     </>
   )

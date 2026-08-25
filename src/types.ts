@@ -26,6 +26,10 @@ export type Product = {
   color: string
   icon: LucideIcon
   status: Status
+  /** Longer explanation shown by the catalogue's "About the product" panel. */
+  about: string
+  /** Three short selling points listed alongside `about`. */
+  highlights: string[]
 }
 
 export type NavItem = {
@@ -93,3 +97,22 @@ export type AppNavSection = {
   title: string
   items: AppNavItem[]
 }
+
+/** A log line is plain text with the entities it touched picked out in bold. */
+export type Segment = string | { b: string }
+
+export type LogEntry = {
+  icon?: LucideIcon
+  tone?: "blue" | "green"
+  text: Segment[]
+  link?: string
+  at: string
+}
+
+export type LogGroup = {
+  title: string
+  entries: LogEntry[]
+}
+
+/** A log line lifted out of its group, so it can name where it came from. */
+export type RecentLogEntry = LogEntry & { group: string }

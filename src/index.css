@@ -1,4 +1,5 @@
 @import "@fontsource-variable/plus-jakarta-sans";
+@import "@fontsource-variable/geist";
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -6,6 +7,9 @@
 @theme {
   /* Overrides Tailwind's default sans stack to make Plus Jakarta Sans global */
   --font-sans: "Plus Jakarta Sans Variable", "Plus Jakarta Sans", sans-serif;
+  /* Utility face for money, counts and codes: narrower figures than Jakarta,
+     so columns of amounts line up and read as data rather than prose. */
+  --font-data: "Geist Variable", "Plus Jakarta Sans Variable", sans-serif;
 }
 
 :root {
@@ -42,13 +46,15 @@ p {
   display: flex;
 }
 .sidebar {
-  --sidebar-base: #105289;
-  --sidebar-hover: #0c4477;
+  --sidebar-base: #002047;
+  --sidebar-hover: #0b3565;
+  --sidebar-line: #123c6b;
+  --sidebar-muted: #8ea5bf;
   position: fixed;
   inset: 0 auto 0 0;
   width: 272px;
   background: var(--sidebar-base);
-  color: #dfe4ff;
+  color: #d6e1ee;
   padding: 0 12px;
   z-index: 20;
   display: flex;
@@ -75,11 +81,11 @@ p {
   grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: 10px;
-  margin: 0 2px 14px;
+  margin: 20px 2px 4px;
   padding: 10px;
   border-radius: 10px;
-  background: #141c5c;
-  border: 1px solid #2c3690;
+  background: #00152f;
+  border: 1px solid var(--sidebar-line);
   flex: none;
 }
 .app-context p {
@@ -97,12 +103,12 @@ p {
   font-size: 10px;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #8f9bd8;
+  color: var(--sidebar-muted);
 }
 .app-context > button {
   border: 0;
   background: none;
-  color: #a7b1e8;
+  color: #a8bdd4;
   padding: 5px;
   border-radius: 6px;
   display: grid;
@@ -116,15 +122,20 @@ p {
   display: grid;
   align-content: start;
   gap: 14px;
+  padding-top: 20px;
   overflow-y: auto;
   overflow-x: hidden;
   padding-bottom: 12px;
   scrollbar-width: thin;
-  scrollbar-color: #39439c transparent;
+  scrollbar-color: #1c4b7d transparent;
 }
 .sidebar .nav-section {
   display: grid;
   gap: 2px;
+}
+/* With an application context card above it, the nav needs less of a gap. */
+.sidebar .app-context + nav {
+  padding-top: 6px;
 }
 .sidebar .nav-heading {
   border: 0;
@@ -133,7 +144,7 @@ p {
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: #8f9bd8;
+  color: var(--sidebar-muted);
   padding: 6px 10px;
   display: flex;
   align-items: center;
@@ -180,7 +191,7 @@ p {
   background: white;
   color: var(--sidebar-base);
   font-weight: 500;
-  box-shadow: 0 1px 2px rgb(9 14 60 / 0.35);
+  box-shadow: 0 1px 2px rgb(0 16 36 / 0.35);
 }
 .sidebar nav button:hover,
 .sidebar footer button:hover {
@@ -204,25 +215,25 @@ p {
   gap: 1px;
   margin: 2px 0 6px 25px;
   padding-left: 12px;
-  border-left: 1px solid #39439c;
+  border-left: 1px solid var(--sidebar-line);
 }
 .sidebar .nav-children button {
   font-size: 13px;
   padding: 8px 10px;
-  color: #b6bfef;
+  color: #b3c5d8;
 }
 .sidebar em {
   margin-left: auto;
   font-style: normal;
   font-size: 12px;
-  background: #e33;
+  background: #d94a3d;
   color: white;
   border-radius: 20px;
   padding: 1px 6px;
 }
 .sidebar footer {
   margin-top: auto;
-  border-top: 1px solid #2c3690;
+  border-top: 1px solid var(--sidebar-line);
   padding: 10px 0 16px;
   display: grid;
   gap: 2px;
@@ -278,7 +289,6 @@ p {
 }
 .producttop > button,
 .gateway header button,
-.switcher header button,
 .change header button {
   border: 0;
   background: none;
@@ -300,7 +310,6 @@ p {
   place-items: center;
   font-weight: 700;
 }
-.switcher header,
 .gateway header,
 .change header {
   display: flex;
@@ -582,7 +591,6 @@ p {
   max-width: 100%;
   min-width: 0;
 }
-.switcher,
 .gateway,
 .change,
 .success,
@@ -590,56 +598,6 @@ p {
   background: white;
   border-radius: 10px;
   box-shadow: 0 20px 60px #0003;
-}
-.switcher {
-  width: min(650px, 100%);
-  max-height: 92vh;
-  overflow: auto;
-  padding: 25px;
-}
-.switch-tools {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
-  margin: 18px 0;
-}
-.switch-tools button,
-.switch-tools label {
-  height: 43px;
-  border: 1px solid #dfe4ea;
-  border-radius: 6px;
-  background: #f5f8ff;
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  padding: 0 12px;
-}
-.switch-tools input {
-  border: 0;
-  outline: 0;
-  background: none;
-  width: 100%;
-}
-.switch-group > small {
-  display: block;
-  color: #687386;
-  margin-top: 15px;
-}
-.switch-group > button {
-  width: 100%;
-  border: 0;
-  border-top: 1px solid #e5e8ed;
-  background: white;
-  display: grid;
-  grid-template-columns: auto 130px 1fr auto;
-  gap: 12px;
-  align-items: center;
-  text-align: left;
-  padding: 12px;
-}
-.switch-group button span {
-  color: #667085;
-  font-size: 13px;
 }
 .searchbox {
   width: min(620px, 100%);
@@ -1337,14 +1295,14 @@ p {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #fff7e8;
-  border: 1px solid #f1ddb5;
+  background: #f8fafc;
+  border: 1px solid #e3e7ec;
   border-radius: 6px;
   padding: 13px;
   margin-bottom: 18px;
 }
 .pending-change > svg {
-  color: #b46a00;
+  color: #667085;
 }
 .pending-change p,
 .saved p {
@@ -1407,189 +1365,6 @@ p {
   margin: 0;
 }
 .approval-note span {
-  color: #667085;
-  font-size: 12px;
-}
-.business-detail {
-  max-width: 1050px;
-}
-.back-link {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  border: 0;
-  background: none;
-  color: #0b63f6;
-  margin-bottom: 18px;
-}
-.business-detail-head {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  background: white;
-  border: 1px solid #dfe4ea;
-  border-radius: 7px;
-  padding: 20px;
-}
-.business-detail-head > .business-avatar,
-.onboarding-title > div > span {
-  width: 54px;
-  height: 54px;
-  border: 1px solid #dfe4ea;
-  border-radius: 7px;
-  color: #d22b2b;
-  display: grid;
-  place-items: center;
-  font-weight: 700;
-}
-.business-detail-head > div {
-  flex: 1;
-}
-.business-detail-head h2 {
-  margin-bottom: 3px;
-}
-.business-detail-head p {
-  margin: 0;
-  color: #667085;
-}
-.business-facts {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border: 1px solid #dfe4ea;
-  border-radius: 7px;
-  background: white;
-  margin-top: 14px;
-}
-.business-facts > div {
-  display: grid;
-  padding: 18px;
-  border-right: 1px solid #e4e7ec;
-}
-.business-facts > div:last-child {
-  border: 0;
-}
-.business-facts small {
-  color: #667085;
-}
-.business-detail-tabs {
-  display: flex;
-  border-bottom: 1px solid #dfe4ea;
-  margin-top: 20px;
-}
-.business-detail-tabs button {
-  border: 0;
-  background: none;
-  padding: 12px 18px;
-}
-.business-detail-tabs button.active {
-  color: #0b63f6;
-  border-bottom: 2px solid #0b63f6;
-}
-.onboarding-detail {
-  display: grid;
-  gap: 16px;
-}
-.onboarding-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.onboarding-title > div {
-  display: flex;
-  gap: 13px;
-  align-items: center;
-}
-.onboarding-title h2 {
-  margin-bottom: 3px;
-}
-.onboarding-title p {
-  color: #667085;
-  margin: 0;
-}
-.onboarding-status {
-  border: 1px solid #dfe4ea;
-  background: white;
-  border-radius: 7px;
-  padding: 20px;
-}
-.onboarding-status header {
-  display: flex;
-  justify-content: space-between;
-}
-.onboarding-status header h3 {
-  margin-bottom: 4px;
-}
-.onboarding-status header p {
-  color: #667085;
-}
-.onboarding-steps {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  margin-top: 20px;
-}
-.onboarding-steps > div {
-  display: grid;
-  justify-items: center;
-  text-align: center;
-  color: #98a2b3;
-  position: relative;
-}
-.onboarding-steps > div:before {
-  content: "";
-  position: absolute;
-  height: 1px;
-  background: #d8dee7;
-  left: -50%;
-  right: 50%;
-  top: 15px;
-}
-.onboarding-steps > div:first-child:before {
-  display: none;
-}
-.onboarding-steps span {
-  width: 30px;
-  height: 30px;
-  border: 1px solid #ccd3dc;
-  background: white;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  z-index: 1;
-}
-.onboarding-steps b {
-  font-size: 11px;
-  margin-top: 6px;
-}
-.onboarding-steps small {
-  font-size: 10px;
-}
-.onboarding-steps .complete span {
-  background: #e9f8ee;
-  color: #27804a;
-  border-color: #9bceb0;
-}
-.onboarding-steps .current span {
-  background: #0b63f6;
-  color: white;
-}
-.outstanding {
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  border: 1px solid #f0dbb2;
-  background: #fff9ed;
-  border-radius: 7px;
-  padding: 16px;
-}
-.outstanding > svg {
-  color: #b86c00;
-}
-.outstanding p {
-  display: grid;
-  flex: 1;
-  margin: 0;
-}
-.outstanding span {
   color: #667085;
   font-size: 12px;
 }
@@ -1767,8 +1542,8 @@ p {
   margin: 3px 0;
 }
 .settings-tabs button.active {
-  background: #eaf2ff;
-  color: #0b63f6;
+  background: #eef3f9;
+  color: #002047;
   font-weight: 650;
 }
 .settings-content {
@@ -1837,7 +1612,7 @@ p {
   display: flex;
   align-items: center;
   gap: 6px;
-  color: #8a5c13;
+  color: #667085;
   margin-top: 14px;
 }
 .address small svg {
@@ -1852,11 +1627,15 @@ p {
   display: flex;
   align-items: center;
   gap: 8px;
-  background: #ecf8f0;
-  color: #247747;
+  background: #f8fafc;
+  border: 1px solid #e3e7ec;
+  color: #344054;
   padding: 11px 14px;
   border-radius: 6px;
   margin-bottom: 16px;
+}
+.saved > svg {
+  color: #667085;
 }
 .bank-settings {
   display: grid;
@@ -1891,12 +1670,8 @@ p {
   border-radius: 8px;
   display: grid;
   place-items: center;
-  background: #e8f6f8;
-  color: #087485;
-}
-.bank-logo.b1 {
-  background: #eef0ff;
-  color: #51459b;
+  background: #f2f5f9;
+  color: #55697f;
 }
 .request-card {
   display: flex;
@@ -1909,7 +1684,7 @@ p {
   margin-top: 18px;
 }
 .request-card > svg {
-  color: #0b63f6;
+  color: #667085;
 }
 .request-card > div {
   flex: 1;
@@ -1942,10 +1717,34 @@ p {
   border-radius: 10px;
   background: white;
   border: 1px solid #dfe4ea;
-  color: #d22b2b;
+  color: #344054;
   display: grid;
   place-items: center;
   font-weight: 800;
+  overflow: hidden;
+  padding: 8px;
+}
+.brand-preview > span img,
+.merchant-identity img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+.merchant-identity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.merchant-identity > span {
+  width: 46px;
+  height: 46px;
+  border-radius: 9px;
+  border: 1px solid #e3e7ec;
+  background: white;
+  display: grid;
+  place-items: center;
+  padding: 6px;
+  flex: none;
 }
 .brand-preview h3 {
   margin-bottom: 4px;
@@ -1999,16 +1798,8 @@ p {
   border-radius: 50%;
   display: grid;
   place-items: center;
-  background: #eaf2ff;
-  color: #0b63f6;
-}
-.request-icon.r1 {
-  background: #fff1df;
-  color: #bd6900;
-}
-.request-icon.r2 {
-  background: #e9f8ee;
-  color: #268449;
+  background: #f2f5f9;
+  color: #55697f;
 }
 .transpay-nav {
   background: #072c73;
@@ -2596,14 +2387,6 @@ p {
   place-items: center;
   margin: auto;
 }
-.app-switch-modal .switch-icon {
-  background: none;
-}
-.app-switch-modal .switch-icon .picon {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-}
 .app-switch-modal p b,
 .app-exit-modal p b {
   color: #101d42;
@@ -2614,13 +2397,11 @@ p {
 .business-switch-modal p b {
   color: #101d42;
 }
-.business-switch-modal footer {
-  justify-content: center;
-}
-.business-switch-modal footer button {
-  min-width: 125px;
-}
+/* The heading leads the dialog; a mark above it earns the extra top space. */
 .confirm-modal h2 {
+  margin: 0 0 10px;
+}
+.confirm-modal > span + h2 {
   margin-top: 15px;
 }
 .confirm-modal p {
@@ -3270,78 +3051,6 @@ p {
 .statement-account small {
   color: #667085;
 }
-.business-tab-content {
-  padding: 24px 4px;
-}
-.overview-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-.business-tab-content > section {
-  background: white;
-  border-radius: 7px;
-  padding: 20px;
-}
-.business-tab-content section h3 {
-  font-size: 16px;
-}
-.business-tab-content dl {
-  margin: 0;
-}
-.business-tab-content dl > div {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px 0;
-  border-bottom: 1px solid #e7eaee;
-}
-.business-tab-content dt {
-  color: #667085;
-}
-.business-tab-content dd {
-  margin: 0;
-  font-weight: 600;
-}
-.business-tab-content section > p {
-  display: grid;
-}
-.business-tab-content section > p span {
-  color: #667085;
-  margin-top: 4px;
-}
-.representative-list,
-.business-apps {
-  background: white;
-  border-radius: 7px;
-}
-.representative-list > div,
-.business-apps > div {
-  display: flex;
-  align-items: center;
-  gap: 13px;
-  padding: 14px 17px;
-  border-bottom: 1px solid #e7eaee;
-}
-.representative-list > div > i {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: #eaf2ff;
-  color: #0b63f6;
-  display: grid;
-  place-items: center;
-  font-style: normal;
-}
-.representative-list p,
-.business-apps p {
-  display: grid;
-  flex: 1;
-  margin: 0;
-}
-.business-detail-head,
-.business-facts,
-.onboarding-status,
-.outstanding,
 .ops-summary > div,
 .ops-list,
 .data-table,
@@ -3351,9 +3060,6 @@ p {
 .activity-balance,
 .activity-list,
 .statement-account,
-.business-tab-content > section,
-.representative-list,
-.business-apps,
 .merchant-strip,
 .account-select label,
 .wizard-help,
@@ -3372,10 +3078,6 @@ p {
 .processing-page,
 .ready-empty {
   border: 0 !important;
-}
-.representative-list small,
-.business-apps small {
-  color: #667085;
 }
 @media (max-width: 1050px) {
   .simple-home {
@@ -3431,9 +3133,6 @@ p {
     min-width: 720px;
   }
   .recon-summary {
-    grid-template-columns: 1fr;
-  }
-  .overview-grid {
     grid-template-columns: 1fr;
   }
   .summary {
@@ -3511,15 +3210,6 @@ p {
   .impact > div {
     display: grid;
   }
-  .switch-tools {
-    grid-template-columns: 1fr;
-  }
-  .switch-group > button {
-    grid-template-columns: auto 110px auto;
-  }
-  .switch-group button span {
-    display: none;
-  }
   .settings-layout {
     grid-template-columns: 1fr;
   }
@@ -3588,35 +3278,6 @@ p {
   .workspace-products > div > button > span {
     display: none;
   }
-  .business-facts {
-    grid-template-columns: 1fr 1fr;
-  }
-  .business-facts > div:nth-child(2) {
-    border-right: 0;
-  }
-  .business-detail-head {
-    align-items: flex-start;
-    flex-wrap: wrap;
-  }
-  .business-detail-head > .primary {
-    margin-left: 68px;
-  }
-  .onboarding-title {
-    align-items: flex-start;
-    gap: 12px;
-  }
-  .onboarding-steps {
-    overflow: auto;
-    grid-template-columns: repeat(5, 110px);
-    padding-bottom: 8px;
-  }
-  .outstanding {
-    align-items: flex-start;
-    flex-wrap: wrap;
-  }
-  .outstanding .outline {
-    margin-left: 32px;
-  }
   .value-compare {
     grid-template-columns: 1fr;
   }
@@ -3667,19 +3328,8 @@ p {
     border-bottom: 1px solid #ffffff30;
     padding: 0 0 9px;
   }
-  .report-list article > .badge,
-  .representative-list .badge,
-  .business-apps .badge {
+  .report-list article > .badge {
     display: none;
-  }
-  .business-tab-content {
-    padding-top: 18px;
-  }
-  .business-detail-tabs {
-    overflow: auto;
-  }
-  .business-detail-tabs button {
-    white-space: nowrap;
   }
   .wizard-page {
     padding: 22px 15px;

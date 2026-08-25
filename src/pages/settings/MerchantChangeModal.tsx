@@ -1,6 +1,6 @@
 import { ChevronRight, ShieldCheck, X } from "lucide-react"
 
-import { Overlay } from "@/components/common"
+import { Overlay, PageActionButton } from "@/components/common"
 
 export function MerchantChangeModal({
   activeEmail,
@@ -61,11 +61,10 @@ export function MerchantChangeModal({
           </p>
         </div>
         <footer>
-          <button className="outline" onClick={close}>
+          <PageActionButton variant="outline" onClick={close}>
             Cancel
-          </button>
-          <button
-            className="primary"
+          </PageActionButton>
+          <PageActionButton
             disabled={submitting || !requestedEmail.includes("@")}
             onClick={submit}
           >
@@ -77,7 +76,7 @@ export function MerchantChangeModal({
             ) : (
               "Review & submit"
             )}
-          </button>
+          </PageActionButton>
         </footer>
       </section>
     </Overlay>

@@ -1,6 +1,7 @@
 import { ShieldCheck } from "lucide-react"
 
-import { Badge } from "@/components/common"
+import { Badge, PageActionButton } from "@/components/common"
+import { businessLogo } from "@/data/businesses"
 
 export function BusinessDetails({
   merchant,
@@ -13,12 +14,20 @@ export function BusinessDetails({
   requestPending: boolean
   requestChange: () => void
 }) {
+  const logo = businessLogo(merchant)
   return (
     <>
       <div className="setting-head">
-        <div>
-          <h2>Business details</h2>
-          <p>Approved merchant information shared with your applications.</p>
+        <div className="merchant-identity">
+          {logo ? (
+            <span>
+              <img src={logo} alt={merchant} />
+            </span>
+          ) : null}
+          <div>
+            <h2>Business details</h2>
+            <p>Approved merchant information shared with your applications.</p>
+          </div>
         </div>
         <Badge s="approved" />
       </div>
@@ -59,19 +68,17 @@ export function BusinessDetails({
       <div className="address">
         <h3>Registered address</h3>
         <p>14 Independence Avenue, Airport City, Accra, Ghana</p>
-        <button className="outline">Request address change</button>
+        <PageActionButton variant="outline">
+          Request address change
+        </PageActionButton>
         <small>
           <ShieldCheck /> Regulated details require review before they change.
         </small>
       </div>
       <div className="setting-actions">
-        <button
-          className="primary"
-          onClick={requestChange}
-          disabled={requestPending}
-        >
+        <PageActionButton onClick={requestChange} disabled={requestPending}>
           {requestPending ? "Request pending" : "Request a change"}
-        </button>
+        </PageActionButton>
       </div>
     </>
   )

@@ -1,6 +1,6 @@
 import { FileText, Plus } from "lucide-react"
 
-import { Badge } from "@/components/common"
+import { Badge, PageActionButton } from "@/components/common"
 
 const requests = [
   [
@@ -24,15 +24,12 @@ export function SetupRequests() {
           <h2>Setup requests</h2>
           <p>Track requests that affect shared merchant services.</p>
         </div>
-        <button className="primary">
-          <Plus />
-          New request
-        </button>
+        <PageActionButton icon={Plus}>New request</PageActionButton>
       </div>
       <div className="request-list">
         {requests.map((request, i) => (
           <article key={request[0]}>
-            <span className={`request-icon r${i}`}>
+            <span className="request-icon">
               <FileText />
             </span>
             <p>
@@ -40,7 +37,7 @@ export function SetupRequests() {
               <small>{request[1]}</small>
             </p>
             <Badge s={i === 2 ? "approved" : "pending"} />
-            <button className="outline">View</button>
+            <PageActionButton variant="outline">View</PageActionButton>
           </article>
         ))}
       </div>
