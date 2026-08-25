@@ -1,6 +1,5 @@
 import {
   Building03Icon,
-  CheckmarkBadge01Icon,
   CustomerSupportIcon,
   DashboardSquare01Icon,
   Home01Icon,

@@ -1,9 +1,9 @@
-import { useState } from "react"
 import { Building2, Check, CheckCircle2, ChevronRight } from "lucide-react"
+import { useState } from "react"
 
 import { ConfirmDialog, Overlay, PageActionButton } from "@/components/common"
-import { BranchModal } from "@/pages/transpay/BranchModal"
 import { transpayWizardSteps } from "@/data/tabs"
+import { BranchModal } from "@/pages/transpay/BranchModal"
 import {
   BranchesStep,
   GeneralStep,

@@ -4,7 +4,6 @@ import {
   Clock3,
   CreditCard,
   HeartPulse,
-  Landmark,
   MessageCircle,
   PiggyBank,
   WalletCards,
