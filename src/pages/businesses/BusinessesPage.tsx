@@ -1,11 +1,10 @@
+import { Plus } from "lucide-react"
 import { useEffect, useState, type ReactNode } from "react"
-import { ArrowRight, Plus } from "lucide-react"
 
-import acmeManuLogo from "@/assets/acme_manu.png"
 import acmeLogo from "@/assets/acme.png"
+import acmeManuLogo from "@/assets/acme_manu.png"
 import novaLogo from "@/assets/nova.png"
-import { Badge, BusinessLogo, PageActionButton } from "@/components/common"
-import { switchableBusinesses } from "@/data/businesses"
+import { Badge, PageActionButton } from "@/components/common"
 import { startExternalOnboarding } from "@/lib/onboarding"
 import { keys, readJSON } from "@/lib/storage"
 import { BusinessDetail } from "@/pages/businesses/BusinessDetail"
@@ -32,10 +31,6 @@ const baseBusinesses: BusinessRecord[] = [
   },
 ]
 
-/** Businesses we hold a seat on rather than administer. */
-const productAccessBusinesses = switchableBusinesses.filter(
-  (business) => business.access === "product"
-)
 
 /** The Acme/Nova wordmarks sit on a square canvas that is ~70% empty, while the
  *  Acme Manufacturing lockup fills its own. Each carries the scale that lands
@@ -89,8 +84,8 @@ function GroupHead({
   children,
 }: {
   title: string
-  count: number
-  sub: string
+  count?: number
+  sub?: string
   children?: ReactNode
 }) {
   return (
@@ -143,43 +138,8 @@ function BusinessCard({
   )
 }
 
-/**
- * A business whose applications we can open but whose own record we can't.
- * It offers the switch and nothing else — there is no detail view to link to.
- */
-function ProductAccessCard({
-  business,
-  select,
-}: {
-  business: SwitchableBusiness
-  select: () => void
-}) {
-  return (
-    <article className="flex flex-col rounded-xl border border-[#e3e7ed] bg-white p-6 shadow-[0_1px_2px_rgb(16_29_66/0.04)] transition-shadow hover:shadow-[0_6px_18px_rgb(16_29_66/0.08)]">
-      <div className="flex items-start justify-between gap-4">
-        <BusinessLogo
-          src={business.logo}
-          name={business.name}
-          className="size-10"
-        />
-      
-      </div>
 
-      <h2 className="mt-6 truncate text-[17px] font-bold tracking-[-0.01em] text-[#101d42]">
-        {business.name}
-      </h2>
-      <p className="mt-1 text-sm text-[#8792a8]">Products Access Only</p>
 
-      <PageActionButton
-        className="mt-6 w-full"
-        icon={ArrowRight}
-        onClick={select}
-      >
-        Switch to business
-      </PageActionButton>
-    </article>
-  )
-}
 
 function AddBusinessCard({ onClick }: { onClick: () => void }) {
   return (
@@ -204,7 +164,7 @@ function AddBusinessCard({ onClick }: { onClick: () => void }) {
 export function BusinessesPage({
   merchant,
   setMerchant,
-  requestProductAccess,
+
 }: {
   merchant: string
   setMerchant: (name: string) => void
@@ -242,7 +202,8 @@ export function BusinessesPage({
     <div className="flex flex-col gap-12">
       <section className="flex flex-col gap-6">
         <GroupHead
-       
+          title="Businesses you manage"
+        
         >
           <PageActionButton icon={Plus} onClick={addBusiness}>
             Add business
@@ -263,6 +224,8 @@ export function BusinessesPage({
           <AddBusinessCard onClick={addBusiness} />
         </div>
       </section>
+
+      
     </div>
   )
 }
