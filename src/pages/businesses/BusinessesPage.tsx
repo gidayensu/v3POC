@@ -242,9 +242,7 @@ export function BusinessesPage({
     <div className="flex flex-col gap-12">
       <section className="flex flex-col gap-6">
         <GroupHead
-          title="Businesses you manage"
-          count={businesses.length}
-          sub="Full access to their applications and settings."
+       
         >
           <PageActionButton icon={Plus} onClick={addBusiness}>
             Add business
@@ -265,26 +263,6 @@ export function BusinessesPage({
           <AddBusinessCard onClick={addBusiness} />
         </div>
       </section>
-
-      {productAccessBusinesses.length > 0 && (
-        <section className="flex flex-col gap-6">
-          <GroupHead
-            title="Businesses you have product access to"
-            count={productAccessBusinesses.length}
-            sub="You can switch in and work inside their applications."
-          />
-
-          <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
-            {productAccessBusinesses.map((x) => (
-              <ProductAccessCard
-                key={x.name}
-                business={x}
-                select={() => requestProductAccess(x)}
-              />
-            ))}
-          </div>
-        </section>
-      )}
     </div>
   )
 }
