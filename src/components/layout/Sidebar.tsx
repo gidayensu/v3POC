@@ -6,7 +6,7 @@ import {
 } from "@hugeicons/core-free-icons"
 import { HugeiconsIcon } from "@hugeicons/react"
 
-import wordmark from "@/assets/transflow_main_blue.png"
+import wordmark from "@/assets/transflow_white.png"
 import { ProductIcon } from "@/components/common"
 import { appNavSections } from "@/data/appNavigation"
 import { isNavActive, navFooterItems, navSections } from "@/data/navigation"
@@ -190,7 +190,7 @@ export function Sidebar({
   return (
     <aside className={`sidebar ${open ? "open" : ""}`}>
       <header
-        className={`flex h-[78px] flex-none items-center border-r border-b border-[#dfe5ec] bg-white ${
+        className={`flex h-[78px] flex-none items-center border-b border-(--sidebar-line) bg-(--sidebar-base) ${
           collapsed
             ? "-mx-2.5 justify-center px-2"
             : "-mx-3 justify-between pr-3.5 pl-6"
@@ -205,7 +205,7 @@ export function Sidebar({
         )}
         <button
           type="button"
-          className="group grid size-9 shrink-0 place-items-center rounded-lg transition-colors outline-none hover:bg-[#eef3f9] focus-visible:ring-2 focus-visible:ring-[#002047]/35"
+          className="group grid size-9 shrink-0 place-items-center rounded-lg transition-colors outline-none hover:bg-(--sidebar-hover) focus-visible:ring-2 focus-visible:ring-white/40"
           onClick={toggleCollapsed}
           title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
         >
@@ -213,7 +213,7 @@ export function Sidebar({
               rule outranks Tailwind text utilities on the button itself. */}
           <HugeiconsIcon
             icon={SidebarLeftIcon}
-            className="text-[#3d5772] transition-colors group-hover:text-[#002047]"
+            className="text-(--sidebar-muted) transition-colors group-hover:text-white"
           />
         </button>
       </header>

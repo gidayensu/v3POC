@@ -50,6 +50,7 @@ p {
   --sidebar-hover: #0b3565;
   --sidebar-line: #123c6b;
   --sidebar-muted: #8ea5bf;
+  --sidebar-accent: #4ba8f2;
   position: fixed;
   inset: 0 auto 0 0;
   width: 272px;
@@ -188,19 +189,25 @@ p {
 }
 .sidebar nav button.active,
 .sidebar footer button.active {
-  background: white;
-  color: var(--sidebar-base);
-  font-weight: 500;
-  box-shadow: 0 1px 2px rgb(0 16 36 / 0.35);
+  background: rgb(255 255 255 / 0.09);
+  color: white;
+  font-weight: 600;
+  border-radius: 0;
+  box-shadow: inset 3px 0 0 var(--sidebar-accent);
+}
+.sidebar nav button.active svg,
+.sidebar footer button.active svg {
+  color: var(--sidebar-accent);
 }
 .sidebar nav button:hover,
 .sidebar footer button:hover {
   background: var(--sidebar-hover);
+  border-radius: 0;
 }
 .sidebar nav button.active:hover,
 .sidebar footer button.active:hover {
-  background: white;
-  color: var(--sidebar-base);
+  background: rgb(255 255 255 / 0.12);
+  color: white;
 }
 .sidebar .caret {
   width: 15px;
