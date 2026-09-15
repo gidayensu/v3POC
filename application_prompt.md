@@ -1510,7 +1510,7 @@ Acme Trading Ltd
 Example administrator:
 
 ```text
-Gideon Okafor
+Gideon Agyeman
 ```
 
 Example accounts:

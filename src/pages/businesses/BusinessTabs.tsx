@@ -67,7 +67,7 @@ function OverviewTab({ business }: { business: BusinessRecord }) {
           Primary contact
         </h3>
         <p className="m-0 grid gap-1.5">
-          <b className="text-[15px] font-bold text-[#101d42]">Gideon Okafor</b>
+          <b className="text-[15px] font-bold text-[#101d42]">Gideon Agyeman</b>
           <span className="text-sm text-[#667085]">Merchant Administrator</span>
           <span className="text-sm text-[#667085]">gideon@acmetrading.com</span>
           <span className="text-sm text-[#667085]">+233 30 555 0194</span>
@@ -79,7 +79,7 @@ function OverviewTab({ business }: { business: BusinessRecord }) {
 
 function RepresentativesTab() {
   const representatives = [
-    ["Gideon Okafor", "Primary administrator", "Director · Verified"],
+    ["Gideon Agyeman", "Primary administrator", "Director · Verified"],
     [
       "Ama Mensah",
       "Finance representative",

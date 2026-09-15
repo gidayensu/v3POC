@@ -30,8 +30,8 @@ export const users: UserRecord[] = [
     created: "Aug 20, 2026, 8:24 AM",
   },
   {
-    name: "Gideon Okafor",
-    email: "gokafor@acmetrading.com",
+    name: "Gideon Agyeman",
+    email: "gAgyeman@acmetrading.com",
     role: "Apex Admin",
     status: "active",
     merchant: "Acme Trading Ltd",

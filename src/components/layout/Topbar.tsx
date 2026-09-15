@@ -90,7 +90,7 @@ export function Topbar({
           G
         </span>
         <b className="text-sm font-semibold text-[#101d42] max-md:hidden">
-          Gideon Okafor
+          Gideon Agyeman
         </b>
         <ChevronDown className="text-[#8792a8] max-md:hidden" />
       </div>

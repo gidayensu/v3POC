@@ -61,7 +61,7 @@ export function ProductTop() {
       <CircleHelp />
       <Bell />
       <span>G</span>
-      <b>Gideon Okafor</b>
+      <b>Gideon Agyeman</b>
     </header>
   )
 }

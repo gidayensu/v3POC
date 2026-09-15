@@ -252,7 +252,7 @@ export function ReviewStep({
             </div>
             <div>
               <dt>Primary contact</dt>
-              <dd>Gideon Okafor</dd>
+              <dd>Gideon Agyeman</dd>
             </div>
           </dl>
         </section>
